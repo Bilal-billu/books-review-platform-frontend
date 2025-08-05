@@ -12,16 +12,18 @@ const Navigation = () => {
         <div
             className='flex justify-center items-center gap-x-5'
         >
-            <button
+            <a
                 className='rounded-full border border-gray-800 px-5 py-1 flex justify-center items-center leading-tight'
+                href='/login'
             >
                 Login
-            </button>
-            <button
+            </a>
+            <a
                 className='rounded-full border border-gray-800 px-5 py-1 flex justify-center items-center leading-tight'
+                href='/register'
             >
                 Signup
-            </button>
+            </a>
         </div>
     </nav>
   )
