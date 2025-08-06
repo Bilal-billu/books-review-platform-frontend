@@ -1,16 +1,23 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 // import { routesUnprotected } from "./components/reusable/routes";
 import Home from "./pages/Home";
 import Navigation from "./components/reusable/Navigation";
 import AddBook from "./pages/AddBook";
 import SignInForm from "./pages/SignInForm";
 import SignupForm from "./pages/SignUpForm";
+import { useEffect } from "react";
+import { useState } from "react";
+import Cookies from 'js-cookie';
+import SingleBook from "./pages/SingleBook";
+import axios from "axios";
+import { AuthProvider, useUserAuth } from "./context/AuthContext.jsx";
 
 
 function App() {
 
   return (
     <div>
+      <AuthProvider>
       <BrowserRouter>
         <Routes>
           {/* {
@@ -30,14 +37,24 @@ function App() {
             }
           />
           <Route
-            path="/:id"
+            path="/books/:id"
             element = {
-              <UserLayout el={<Home />} />
+              <UserLayout el={<SingleBook />} />
                 
             }
           />
           <Route
             path="/add-book"
+            element = {
+              <UserLayout
+                el={<ProtectedUserRoute><AddBook /></ProtectedUserRoute>}
+                // el={<AddBook />}
+              />
+                
+            }
+          />
+          <Route
+            path="/edit-book/:id"
             element = {
               <UserLayout el={<AddBook />} />
                 
@@ -46,19 +63,20 @@ function App() {
           <Route
             path="/login"
             element = {
-              <UserLayout el={<SignInForm />} />
+              <UserLayout el={<DisableLoggedINUser><SignInForm /></DisableLoggedINUser>} />
                 
             }
           />
           <Route
             path="/register"
             element = {
-              <UserLayout el={<SignupForm />} />
+              <UserLayout el={<DisableLoggedINUser><SignupForm /></DisableLoggedINUser>} />
                 
             }
           />
         </Routes>
       </BrowserRouter>
+      </AuthProvider>
     </div>
   )
 }
@@ -78,4 +96,75 @@ const UserLayout = ({ el }) => {
 }
 
 
+const ProtectedUserRoute = ({children}) => {
+  
+  const navigate = useNavigate();
+  const [error, setError] = useState(false);
+  const user = useUserAuth();
+  
+  const [loading, setLoading] = useState(true);
 
+  
+
+  useEffect(()=>{
+    console.log("Got User", user);
+    if(!user.isLoggedIn)
+    {
+      navigate('/login')
+    }
+    setLoading(false);
+  }, [])
+
+  if(loading)
+  {
+    return(
+      <div>
+        <h1>
+          Loading...
+        </h1>
+      </div>
+    )
+  }
+
+
+  return(
+    <>
+      {children}
+    </>
+  )
+}
+
+
+
+const DisableLoggedINUser = ({children}) => {
+  
+  const navigate = useNavigate();
+  // const [error, setError] = useState();
+  const [loading, setLoading] = useState(true);
+  const user = useUserAuth();
+
+  useEffect(()=>{
+    console.log("useUserAuth", user);
+    if(user.isLoggedIn)
+      {
+        navigate('/');
+      }
+      setLoading(false)
+  }, [])
+
+  if(loading)
+  {
+    return(
+      <div>
+        <h1>
+          Loading...
+        </h1>
+      </div>
+    )
+  }
+  return(
+    <>
+      {children}
+    </>
+  )
+}

@@ -2,9 +2,9 @@ import React from 'react'
 
 const BookCard = ({ item }) => {
   return (
-    <div className=' space-y-2'>
+    <div className=' space-y-2 border border-black rounded-lg p-3'>
         <div className='w-full h-40 overflow-hidden'>
-            <img src = {item.image} className='w-full h-full object-cover' />
+            <img src = {item.image || `https://myonlinebookshop.pk/cdn/shop/files/IMG-20250130-WA0023.jpg`} className='w-full h-full object-cover' />
         </div>
         <div>
             <h5
@@ -27,13 +27,13 @@ const BookCard = ({ item }) => {
                 {item.rating}
             </h5>
         </div>
-        <div>
+        {/* <div>
             <h5
                 className=''
             >
                 {item.price}/USD
             </h5>
-        </div>
+        </div> */}
     </div>
   )
 }

@@ -51,8 +51,7 @@ function AddBook() {
     try
     {
         const url = `http://localhost:3000/api/book/add`;
-        const accessToken = Cookies.get("accessToken");
-        // const token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODkxOWRmNmMyNDljNWM0MTRkNWZjYmMiLCJlbWFpbCI6ImFiY0BhYmMuY29tIiwibmFtZSI6IkFCQyIsImlhdCI6MTc1NDM5NjA4NiwiZXhwIjoxNzU0NDgyNDg2fQ.es9RFw9Gkh3CBx4hA-n2eoe6zh8S8A1IuE1wdsp2uAM`;
+        // const accessToken = Cookies.get("accessToken");
         const response = await axios.post(url, formData, {
           headers: {
             Authorization: `Bearer ${accessToken}`,

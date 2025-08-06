@@ -1,13 +1,66 @@
+import { useState } from "react"
 import BookCard from "../components/reusable/BookCard"
+import { useEffect } from "react"
+import axios from "axios"
+import { useSearchParams } from "react-router-dom"
 
 const Home = () => {
+  const [allBooks, setAllBooks] = useState([])
+  const [searchParam, setSearchParams] = useSearchParams();
+
+  async function getBooks()
+  {
+    try
+    {
+      const limit = searchParam.get('limit');
+      const page = searchParam.get('page');
+      let url = `/api/book/`;
+      if(limit && page)
+      {
+        url = url + `?limit=${limit}&page=${page}`
+      }
+      else if(limit)
+      {
+        url = url + `?limit=${limit}`
+      }
+      else if(limit)
+      {
+        url = url + `?page=${page}`
+      }
+      const response = await axios.get(url)
+      console.log(response);
+      setAllBooks(response.data.data.books);
+      setSearchParams({page: response.data.data.meta.page, limit: response.data.data.meta.limit})
+    }
+    catch(e)
+    {
+      console.log(e)
+    }
+  }
+  useEffect(()=>{
+    getBooks();
+  }, [])
+
+  if(!allBooks || allBooks.length === 0)
+  {
+    return (
+      <div>
+        Loading...
+      </div>
+    )
+  }
   return (
-    <div>
+    <div className="space-y-4">
+      <div>
+        <h1 className="text-xl">
+          Checkout these books
+        </h1>
+      </div>
         <div
           className={` w-full grid grid-cols-6 gap-4`}
         >
           {
-            dummyBooks.map((item, i) => (
+            allBooks.map((item, i) => (
               <BookCard item={item} key={i} />
             ))
           }

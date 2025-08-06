@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const SignupForm = () => {
   const [name, setName] = useState('');
@@ -7,6 +8,7 @@ const SignupForm = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,6 +29,7 @@ const SignupForm = () => {
         }
         const response = await axios.post(url, data);
         console.log(response)
+        navigate('/login');
     }
     catch(e)
     {
@@ -35,7 +38,7 @@ const SignupForm = () => {
   };
 
   return (
-    <section className="bg-gray-50 ">
+    <section className=" ">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
         {/* <a href="#" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 ">
           <img className="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo" />

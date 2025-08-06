@@ -1,28 +1,26 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useLogin, useUserAuth } from '../context/AuthContext';
 
 const SignInForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const user = useUserAuth();
+
+  const loginUser = useLogin();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    await loginUser(email, password);
+    console.log(user)
+    if(user.isLoggedIn)
+    {
+      navigate('/');
+    }
     // TODO: Implement form submission logic
-    try
-    {
-      const url = `/api/user/login`;
-      const data = {
-        email,
-        password,
-      }
-      
-      const response = await axios.post(url, data, { withCredentials: true })
-      console.log(response);
-    }
-    catch(e)
-    {
-      console.log(e)
-    }
+    
   };
 
   return (
