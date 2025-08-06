@@ -2,35 +2,39 @@ import { useState } from "react"
 import BookCard from "../components/reusable/BookCard"
 import { useEffect } from "react"
 import axios from "axios"
-import { useSearchParams } from "react-router-dom"
+import { useSearchParams } from "react-router-dom";
 
 const Home = () => {
   const [allBooks, setAllBooks] = useState([])
-  const [searchParam, setSearchParams] = useSearchParams();
+  // const [searchParam, setSearchParams] = useSearchParams();
+  const [meta, setMeta] = useState({
+    page: 0,
+    limit: 0,
+  })
 
   async function getBooks()
   {
     try
     {
-      const limit = searchParam.get('limit');
-      const page = searchParam.get('page');
+      // const limit = searchParam.get('limit');
+      // const page = searchParam.get('page');
       let url = `/api/book/`;
-      if(limit && page)
+      if(meta.limit && meta.page)
       {
-        url = url + `?limit=${limit}&page=${page}`
+        url = url + `?limit=${meta.limit}&page=${meta.page}`
       }
-      else if(limit)
+      else if(meta.limit)
       {
-        url = url + `?limit=${limit}`
+        url = url + `?limit=${meta.limit}`
       }
-      else if(limit)
+      else if(meta.page)
       {
-        url = url + `?page=${page}`
+        url = url + `?page=${meta.page}`
       }
       const response = await axios.get(url)
       console.log(response);
       setAllBooks(response.data.data.books);
-      setSearchParams({page: response.data.data.meta.page, limit: response.data.data.meta.limit})
+      // setSearchParams({page: response.data.data.meta.page, limit: response.data.data.meta.limit})
     }
     catch(e)
     {

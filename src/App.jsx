@@ -3,14 +3,15 @@ import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Navigation from "./components/reusable/Navigation";
 import AddBook from "./pages/AddBook";
-import SignInForm from "./pages/SignInForm";
-import SignupForm from "./pages/SignUpForm";
+import SignInForm from "./components/reusable/SignInForm.jsx";
+import SignupForm from "./components/reusable/SignUpForm.jsx";
 import { useEffect } from "react";
 import { useState } from "react";
 import Cookies from 'js-cookie';
 import SingleBook from "./pages/SingleBook";
 import axios from "axios";
 import { AuthProvider, useUserAuth } from "./context/AuthContext.jsx";
+import { Theme } from "@radix-ui/themes";
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
   return (
     <div>
       <AuthProvider>
+        <Theme accentColor="indigo" >
       <BrowserRouter>
         <Routes>
           {/* {
@@ -60,7 +62,7 @@ function App() {
                 
             }
           />
-          <Route
+          {/* <Route
             path="/login"
             element = {
               <UserLayout el={<DisableLoggedINUser><SignInForm /></DisableLoggedINUser>} />
@@ -73,9 +75,10 @@ function App() {
               <UserLayout el={<DisableLoggedINUser><SignupForm /></DisableLoggedINUser>} />
                 
             }
-          />
+          /> */}
         </Routes>
       </BrowserRouter>
+      </Theme>
       </AuthProvider>
     </div>
   )
