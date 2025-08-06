@@ -43,6 +43,7 @@ export const AuthProvider = ({ children }) => {
       }
       
       const response = await axios.post(url, data, { withCredentials: true })
+      console.log(response)
       setUser(response.data.data.user);
       setIsLoggedIn(true)
       console.log(response);
