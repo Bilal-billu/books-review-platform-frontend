@@ -4,9 +4,13 @@ import Cookies from "js-cookie";
 
 function AddBook() {
   const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  
   const [coverImage, setCoverImage] = useState(null);
   const [genres, setGenres] = useState(['']);
   const [authors, setAuthors] = useState(['']);
+
+  const [error, setError] = useState('');
 
   const handleGenreChange = (index, value) => {
     const newGenres = [...genres];
@@ -37,6 +41,7 @@ function AddBook() {
     const formData = new FormData();
     formData.append('title', title);
     formData.append('coverImage', coverImage);
+    formData.append('description', description);
     genres.forEach((g, i) => formData.append(`genre[${i}]`, g));
     authors.forEach((a, i) => formData.append(`author[${i}]`, a));
 
@@ -53,17 +58,24 @@ function AddBook() {
         const url = `http://localhost:3000/api/book/add`;
         // const accessToken = Cookies.get("accessToken");
         const response = await axios.post(url, formData, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            'Content-Type': 'multipart/form-data' // Optional, but recommended
-          },
+          // headers: {
+          //   Authorization: `Bearer ${accessToken}`,
+          //   'Content-Type': 'multipart/form-data' // Optional, but recommended
+          // },
           withCredentials: true,
         })
         console.log(response)
+        setTitle('');
+        setDescription('');
+        setAuthors([''])
+        setGenres([''])
     }
+
+    
     catch(e)
     {
         console.log(e);
+        setError('An error occurred')
     }
 
 
@@ -148,6 +160,17 @@ function AddBook() {
     </div>
 
     <div>
+      <label className="block mb-2 text-sm font-medium text-gray-900">Description</label>
+      <textarea
+          type="text"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          placeholder={`Description`}
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2 mb-2"
+        />
+    </div>
+
+    <div>
       <button
         type="submit"
         className="w-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg px-5 py-2.5"
@@ -156,6 +179,15 @@ function AddBook() {
       </button>
     </div>
   </form>
+  <div>
+    {setError && (
+      <h5
+        className='text-red-500 '
+      >
+        {error}
+      </h5>
+    )}
+  </div>
 </div>
 
   );

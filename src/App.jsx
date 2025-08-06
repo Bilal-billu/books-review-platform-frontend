@@ -108,10 +108,7 @@ const ProtectedUserRoute = ({children}) => {
 
   useEffect(()=>{
     console.log("Got User", user);
-    if(!user.isLoggedIn)
-    {
-      navigate('/login')
-    }
+    
     setLoading(false);
   }, [])
 
@@ -126,6 +123,10 @@ const ProtectedUserRoute = ({children}) => {
     )
   }
 
+  if(!(user.isLoggedIn))
+  {
+    navigate('/login')
+  }
 
   return(
     <>

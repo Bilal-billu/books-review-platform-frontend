@@ -15,13 +15,15 @@ const SignInForm = () => {
     e.preventDefault();
     await loginUser(email, password);
     console.log(user)
-    if(user.isLoggedIn)
-    {
-      navigate('/');
-    }
+    
     // TODO: Implement form submission logic
     
   };
+
+  if(user.isLoggedIn)
+  {
+    navigate('/');
+  }
 
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">

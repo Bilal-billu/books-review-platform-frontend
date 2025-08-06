@@ -3,6 +3,7 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useUserAuth, useLogout } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const Navigation = () => {
 
@@ -10,6 +11,12 @@ const Navigation = () => {
     // const [isUserLoggedIn, setIsUserLoggedIn] = useState(false)
     const user = useUserAuth();
     const logOutUser = useLogout();
+
+    const navigate = useNavigate();
+
+    const navigateTo = (path) => {
+        navigate(path);
+    }
 
   const logOut = async () => {
     await logOutUser();
@@ -24,20 +31,26 @@ const Navigation = () => {
     >
         <div>
             <h5>
-                <a
-                    href='/'
+                <button
+                    // href='/'
+                    onClick={()=>{
+                        navigateTo('/')
+                    }}
                 >
                     Home
-                </a>
+                </button>
             </h5>
         </div>
         <div>
             <h5>
-                <a
-                    href='/add-book'
+                <button
+                    // href='/add-book'
+                    onClick={()=>{
+                        navigateTo('/add-book')
+                    }}
                 >
                     Add Book
-                </a>
+                </button>
             </h5>
         </div>
         <div
@@ -55,18 +68,24 @@ const Navigation = () => {
                 :
                 (
                     <>
-                        <a
+                        <button
                             className='rounded-full border border-gray-800 px-5 py-1 flex justify-center items-center leading-tight'
-                            href='/login'
+                            // href='/login'
+                            onClick={()=>{
+                                navigateTo('/login')
+                            }}
                         >
                             Login
-                        </a>
-                        <a
+                        </button>
+                        <button
                             className='rounded-full border border-gray-800 px-5 py-1 flex justify-center items-center leading-tight'
-                            href='/register'
+                            // href='/register'
+                            onClick={()=>{
+                                navigateTo('/register')
+                            }}
                         >
                             Signup
-                        </a>
+                        </button>
                     </>
                 )
             }
