@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
+import { BrowserRouter, Outlet, Route, Routes, useNavigate } from "react-router-dom";
 // import { routesUnprotected } from "./components/reusable/routes";
 import Home from "./pages/Home";
 import Navigation from "./components/reusable/Navigation";
@@ -12,12 +12,13 @@ import SingleBook from "./pages/SingleBook";
 import axios from "axios";
 import { AuthProvider, useUserAuth } from "./context/AuthContext.jsx";
 import { Theme } from "@radix-ui/themes";
+import Page404 from "./pages/Page404.jsx";
 
 
 function App() {
 
   return (
-    <div>
+    <div className="bg-background min-h-screen">
       <AuthProvider>
         <Theme accentColor="indigo" >
       <BrowserRouter>
@@ -46,19 +47,41 @@ function App() {
             }
           />
           <Route
-            path="/add-book"
+            path="/admin"
             element = {
-              <UserLayout
-                el={<ProtectedUserRoute><AddBook /></ProtectedUserRoute>}
-                // el={<AddBook />}
-              />
-                
+              <ProtectedAdminRoute />  
             }
-          />
+          >
+            <Route index
+            element = {
+              <AddBook />
+            }
+            />
+            <Route path="books"
+            element = {
+              <AddBook />
+            }
+            />
+            </Route>
           <Route
             path="/edit-book/:id"
             element = {
               <UserLayout el={<AddBook />} />
+                
+            }
+          />
+
+          <Route
+            path="/page-404"
+            element = {
+              <UserLayout el={<Page404 />} />
+                
+            }
+          />
+          <Route
+            path="/*"
+            element = {
+              <UserLayout el={<Page404 />} />
                 
             }
           />
@@ -99,7 +122,7 @@ const UserLayout = ({ el }) => {
 }
 
 
-const ProtectedUserRoute = ({children}) => {
+const ProtectedAdminRoute = ({children}) => {
   
   const navigate = useNavigate();
   const [error, setError] = useState(false);
@@ -128,7 +151,11 @@ const ProtectedUserRoute = ({children}) => {
 
   if(!(user.isLoggedIn))
   {
-    navigate('/login')
+    navigate('/page-404')
+  }
+  if(!(user.user.role !== "Admin"))
+  {
+    navigate('/');
   }
 
   return(
@@ -168,7 +195,10 @@ const DisableLoggedINUser = ({children}) => {
   }
   return(
     <>
-      {children}
+    <div>
+      This is the admin route
+    </div>
+      <Outlet />
     </>
   )
 }

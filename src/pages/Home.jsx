@@ -3,6 +3,7 @@ import BookCard from "../components/reusable/BookCard"
 import { useEffect } from "react"
 import axios from "axios"
 import { useSearchParams } from "react-router-dom";
+import HeroHome from "../components/hero/HeroHome";
 
 const Home = () => {
   const [allBooks, setAllBooks] = useState([])
@@ -55,6 +56,11 @@ const Home = () => {
   }
   return (
     <div className="space-y-4">
+      <div
+        className="h-[80vh]"
+      >
+        <HeroHome />
+      </div>
       <div>
         <h1 className="text-xl">
           Checkout these books
