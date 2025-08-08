@@ -1,9 +1,9 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useLogin, useUserAuth } from '../context/AuthContext';
+import { useLogin, useUserAuth } from '../../context/AuthContext';
 
-const SignInForm = () => {
+const SignInForm = ({ onClose }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const user = useUserAuth();
@@ -13,30 +13,47 @@ const SignInForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await loginUser(email, password);
-    console.log(user)
-    
+    await loginUser(email, password);    
     // TODO: Implement form submission logic
     
   };
 
-  if(user.isLoggedIn)
-  {
-    navigate('/');
-  }
+  const requiredFields =
+  
+  email &&
+  password
+    ? true
+    : false;
+
+    useEffect(()=>{
+      console.log(user)
+      // if(user.user.role === "Admin")
+      // {
+      //   navigate('/admin');
+      // }
+      if(user.isLoggedIn)
+      {
+        onClose();
+      }
+    },[user])
+
+  // if(user.isLoggedIn)
+  // {
+  //   navigate('/');
+  // }
 
   return (
-    <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+    <div className="flex min-h-full flex-col justify-center px-6 py-5 lg:px-8 bg-background-dark rounded-md">
+      {/* <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-black">
           Sign in to your account
         </h2>
-      </div>
+      </div> */}
 
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+      <div className="mt-0 sm:mx-auto sm:w-full sm:max-w-sm">
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label htmlFor="email" className="block text-sm/6 font-medium text-gray-800">
+            <label htmlFor="email" className="block text-sm/6 font-medium text-background-muted">
               Email address
             </label>
             <div className="mt-2">
@@ -46,16 +63,17 @@ const SignInForm = () => {
                 name="email"
                 required
                 autoComplete="email"
+                placeholder="name@company.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="block border border-gray-500 w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-black outline outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
+                className="bg-foreground-soft border border-gray-300 text-background-muted text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2 "
               />
             </div>
           </div>
 
           <div>
             <div className="flex items-center justify-between">
-              <label htmlFor="password" className="block text-sm/6 font-medium text-gray-800">
+              <label htmlFor="password" className="block text-sm/6 font-medium text-background-muted">
                 Password
               </label>
               {/* <div className="text-sm">
@@ -73,7 +91,8 @@ const SignInForm = () => {
                 autoComplete="current-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="block border border-gray-500 w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-black outline outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
+                placeholder="••••••••"
+                className="bg-foreground-soft border border-gray-300 text-background-muted text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2"
               />
             </div>
           </div>
@@ -81,7 +100,8 @@ const SignInForm = () => {
           <div>
             <button
               type="submit"
-              className="flex w-full justify-center rounded-md bg-blue-600 hover:bg-blue-700 px-3 py-1.5 text-sm/6 font-semibold text-white  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+              disabled = {!requiredFields}
+              className="w-full text-white bg-accent hover:bg-accent-dark disabled:bg-accent-light disabled:hover:bg-accent-light focus:ring-4 focus:outline-none focus:ring-accent-light font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-colors duration-200 "
             >
               Sign in
             </button>
