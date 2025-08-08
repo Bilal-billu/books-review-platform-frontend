@@ -21,9 +21,7 @@ const SingleBook = () => {
     console.log("uh oh")
   };
 
-  
-  useEffect(() => {
-      const fetchSingleBook = async () => {
+  const fetchSingleBook = async () => {
           
         try {
         const pathStringArray = String(location.pathname).split('/');
@@ -38,6 +36,8 @@ const SingleBook = () => {
         setLoading(false);
       }
     };
+  useEffect(() => {
+      
 
     fetchSingleBook();
   }, [location]);
@@ -58,6 +58,7 @@ const SingleBook = () => {
     setText('');
     setStarsCount(0);
     console.log(response);
+    fetchSingleBook();
     }
     catch(e)
     {
@@ -171,10 +172,10 @@ const SingleBook = () => {
             disabled={text.length === 0 && starsCount < 1}
             className={`
               px-5 py-2 text-sm font-medium rounded-md shadow-sm border transition-all duration-200 focus:outline-none
-              disabled:bg-accent-light disabled:hover:bg-accent-light disabled:text-text-400
+              disabled:bg-rose-100 disabled:hover:bg-rose-100 disabled:text-rose-300 disabled:border-rose-00
               ${text.length === 0 && starsCount < 1
                 ? " cursor-not-allowed"
-                : "text-accent-light border-accent-light bg-primary hover:bg-accent-dark hover:text-white focus:ring-2 focus:ring-rose-300"}
+                : "text-red-600 border-red-600 bg-red-100 hover:bg-accent-dark hover:text-white focus:ring-2 focus:ring-rose-300"}
             `}
           >
             Cancel

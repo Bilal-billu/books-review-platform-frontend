@@ -54,7 +54,7 @@ const SignupForm = ({onClose}) => {
           <img className="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo" />
           Flowbite
         </a> */}
-        <div className="w-full rounded-lg shadow  md:mt-0 sm:max-w-md xl:p-0 text-background-muted ">
+        <div className="w-full rounded-lg shadow  md:mt-0 sm:max-w-md xl:p-0 text-text-600 ">
           <div className="p-6 space-y-4 md:space-y-4 sm:p-4">
             <h1 className="text-xl font-bold leading-tight tracking-tightmd:text-2xl ">
               Create an account
@@ -66,7 +66,7 @@ const SignupForm = ({onClose}) => {
                     type="text"
                     name="name"
                     id="name"
-                    className="bg-foreground-soft text-background-muted border border-gray-300  text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2 "
+                    className="bg-text-500  text-background-muted border border-gray-300  text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2 "
                     placeholder="John Doe"
                     required
                     value={name}
@@ -79,7 +79,7 @@ const SignupForm = ({onClose}) => {
                   type="email"
                   name="email"
                   id="email"
-                  className="bg-foreground-soft text-background-muted border border-gray-300  text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2 "
+                  className="bg-text-500  text-background-muted border border-gray-300  text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2 "
                   placeholder="name@company.com"
                   required
                   value={email}
@@ -93,7 +93,7 @@ const SignupForm = ({onClose}) => {
                   name="password"
                   id="password"
                   placeholder="••••••••"
-                  className="bg-foreground-soft text-background-muted border border-gray-300  text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2"
+                  className="bg-text-500   text-background-muted border border-gray-300  text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2"
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -106,7 +106,7 @@ const SignupForm = ({onClose}) => {
                   name="confirm-password"
                   id="confirm-password"
                   placeholder="••••••••"
-                  className="bg-foreground-soft text-background-muted border border-gray-300 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2"
+                  className="bg-text-500  text-background-muted border border-gray-300 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2"
                   required
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
@@ -132,7 +132,7 @@ const SignupForm = ({onClose}) => {
               <button
                 type="submit"
                 disabled = {!requiredFields}
-                className="w-full text-white bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 disabled:hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+                className="w-full text-white bg-accent-dark hover:bg-blue-700  disabled:bg-accent disabled:text-text-500 disabled:hover:bg-accent focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
               >
                 Create an account
               </button>

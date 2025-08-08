@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Icon } from '@iconify/react';
-import ModalDialog from './reusable/Dialog';
-import AdminEditBook from './admin-edit-book/AdminEditBook';
+import ModalDialog from './Dialog';
+import AdminEditBook from '../admin-edit-book/AdminEditBook';
 import axios from 'axios';
 
 const TabularBookCard = ({ book, dataUpdated }) => {
@@ -40,10 +40,10 @@ const TabularBookCard = ({ book, dataUpdated }) => {
   }
 
   const roundedRating = Math.round(rating * 100) / 100;
-  console.log("book", book)
+  // console.log("book", book)
 
   return (
-    <div className="w-full p-4 mb-4 border rounded shadow hover:shadow-md text-left even:bg-background-dark odd:bg-primary text-text-400 hover:text-text-600 hover:bg-background-muted transition-colors duration-200 cursor-pointer"
+    <div className="w-full p-4 mb-4 border rounded shadow hover:shadow-md text-left even:bg-background-dark odd:bg-primary text-text-400 odd:text-white hover:text-text-600 hover:bg-background-muted transition-colors duration-200 cursor-pointer"
         onClick={openABook}
     >
       <div className="grid grid-cols-9 gap-4 items-center">
@@ -56,7 +56,7 @@ const TabularBookCard = ({ book, dataUpdated }) => {
         <div className="truncate text-sm" title={author.join(', ')}>
           {author[0]}
           <span
-            className='text-background-muted ms-1'
+            className='text-gray-400 ms-1'
           >
             {renderExtraCount(author)}
           </span>
@@ -64,7 +64,7 @@ const TabularBookCard = ({ book, dataUpdated }) => {
         <div className="truncate text-sm" title={genre.join(', ')}>
           {genre[0]}
           <span
-            className='text-background-muted ms-1'
+            className='text-gray-400 ms-1'
           >
             {renderExtraCount(genre)}
           </span>

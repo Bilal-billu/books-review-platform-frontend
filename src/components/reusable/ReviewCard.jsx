@@ -23,9 +23,9 @@ const ReviewCard = ({ review }) => {
       </div>
 
       {/* Review Details */}
-      <div className="flex flex-col space-y-1">
-        <div className="font-semibold text-lg text-text-400">{userId.name}</div>
-        <div className="text-sm text-text-400 ">{userId.email}</div>
+      <div className="flex flex-col space-y-1 text-primary-contrast">
+        <div className="font-semibold text-lg">{userId.name}</div>
+        <div className="text-sm ">{userId.email}</div>
 
         {/* Stars */}
         <div className="flex gap-x-0.5">

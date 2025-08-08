@@ -53,7 +53,7 @@ const SignInForm = ({ onClose }) => {
       <div className="mt-0 sm:mx-auto sm:w-full sm:max-w-sm">
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label htmlFor="email" className="block text-sm/6 font-medium text-background-muted">
+            <label htmlFor="email" className="block text-sm/6 font-medium text-text-600">
               Email address
             </label>
             <div className="mt-2">
@@ -66,14 +66,14 @@ const SignInForm = ({ onClose }) => {
                 placeholder="name@company.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="bg-foreground-soft border border-gray-300 text-background-muted text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2 "
+                className="bg-text-500 border border-gray-300 text-background-muted text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2 "
               />
             </div>
           </div>
 
           <div>
             <div className="flex items-center justify-between">
-              <label htmlFor="password" className="block text-sm/6 font-medium text-background-muted">
+              <label htmlFor="password" className="block text-sm/6 font-medium text-text-600">
                 Password
               </label>
               {/* <div className="text-sm">
@@ -92,7 +92,7 @@ const SignInForm = ({ onClose }) => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="bg-foreground-soft border border-gray-300 text-background-muted text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2"
+                className="bg-text-500 border border-gray-300 text-background-muted text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2"
               />
             </div>
           </div>
@@ -101,7 +101,7 @@ const SignInForm = ({ onClose }) => {
             <button
               type="submit"
               disabled = {!requiredFields}
-              className="w-full text-white bg-accent hover:bg-accent-dark disabled:bg-accent-light disabled:hover:bg-accent-light focus:ring-4 focus:outline-none focus:ring-accent-light font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-colors duration-200 "
+              className="w-full text-white bg-accent-dark hover:bg-blue-700  disabled:bg-accent disabled:text-text-500 disabled:hover:bg-accent focus:ring-4 focus:outline-none focus:ring-accent-light font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-colors duration-200 "
             >
               Sign in
             </button>

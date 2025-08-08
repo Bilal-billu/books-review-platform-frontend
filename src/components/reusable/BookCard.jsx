@@ -14,7 +14,7 @@ const BookCard = ({ item }) => {
   return (
     <button
       onClick={goToBook}
-      className="rounded-xl border border-gray-200 bg-foreground-soft shadow-sm hover:shadow-xl hover:scale-[1.02] transition duration-300 p-4 space-y-3 cursor-pointer text-left text-background"
+      className="rounded-xl border border-gray-200 bg-foreground-muted shadow-sm hover:shadow-xl hover:scale-[1.02] transition duration-300 p-4 space-y-3 cursor-pointer text-left text-background"
     >
       {/* Image Section */}
       <div className="w-full aspect-[2/3] overflow-hidden rounded-md">

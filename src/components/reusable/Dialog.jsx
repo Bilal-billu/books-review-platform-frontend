@@ -30,7 +30,7 @@ export default function ModalDialog({ isOpen, close, title, maxWidth = 'max-w-md
               <Dialog.Panel className={`w-full ${maxWidth} transform overflow-hidden rounded-lg bg-background-dark p-6 text-left align-middle shadow-xl transition-all`}>
                 <Dialog.Title
                   as="h3"
-                  className="text-lg font-medium leading-6 text-background-muted flex justify-between items-center w-full"
+                  className="text-lg font-medium leading-6 text-text-600 flex justify-between items-center w-full"
                 >
                   <span>{title}</span>
                   <span>

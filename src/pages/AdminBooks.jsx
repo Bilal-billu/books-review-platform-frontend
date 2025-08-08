@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import AddBook from '../components/add-book/AddBook';
 import ModalDialog from '../components/reusable/Dialog';
-import TabularBookCard from '../components/TabularBookCard';
+import TabularBookCard from '../components/reusable/TabularBookCard';
 import axios from 'axios';
 
-const AdminPanel = () => {
+const AdminBooks = () => {
   const [showAddBook, setShowAddBook] = useState(false);
   const [allBooks, setAllBooks] = useState([])
 
@@ -84,4 +84,4 @@ const AdminPanel = () => {
   );
 };
 
-export default AdminPanel;
+export default AdminBooks;
