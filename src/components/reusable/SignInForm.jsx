@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLogin, useUserAuth } from '../../context/AuthContext';
 
@@ -13,14 +13,7 @@ const SignInForm = ({ onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await loginUser(email, password);
-    console.log(user)
-    onClose();
-    if(user.user.role === "Admin")
-    {
-      navigate('/admin');
-    }
-    
+    await loginUser(email, password);    
     // TODO: Implement form submission logic
     
   };
@@ -32,10 +25,22 @@ const SignInForm = ({ onClose }) => {
     ? true
     : false;
 
-  if(user.isLoggedIn)
-  {
-    navigate('/');
-  }
+    useEffect(()=>{
+      console.log(user)
+      // if(user.user.role === "Admin")
+      // {
+      //   navigate('/admin');
+      // }
+      if(user.isLoggedIn)
+      {
+        onClose();
+      }
+    },[user])
+
+  // if(user.isLoggedIn)
+  // {
+  //   navigate('/');
+  // }
 
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-5 lg:px-8 bg-background-dark rounded-md">

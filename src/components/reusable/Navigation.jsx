@@ -399,6 +399,12 @@ const navItemsTemplate = [
   // },
 ];
 
+const admin = [
+  {
+    label: "Admin",
+    path: "/admin",
+  }
+]
 const Navigation = () => {
     const [mouseEntererOn, setMouseEntererOn] = useState('');
     const [openSignIn, setOpenSignIn] = useState(false);
@@ -410,20 +416,37 @@ const Navigation = () => {
     const [navItems, setNavItems] = useState(navItemsTemplate);
     const navigate = useNavigate();
     useEffect(() => {
+      console.log("In nav", user)
   setNavItems((prevItems) =>
     prevItems.map((item) => {
       if (item.type === 'dropdown') {
-        // Prepare the dropdownItems
-        const dropdownItems = [...(item.dropdownItems || [])];
+        // Base dropdown items (excluding 'View Books')
+        let dropdownItems = (item.dropdownItems || []).filter(
+          (dropdownItem) => !(dropdownItem.path.includes('admin'))
+        );
 
-        // Conditionally add an item if the user is an admin
-        // if ((user?.user.role === 'Admin')) {
-        //   dropdownItems.push({
-        //     label: 'View Books',
-        //     path: '/admin/books',
-        //   });
-        // }
+        // Conditionally add 'View Books' if the user is an admin
+        if (user?.user.role === 'Admin') {
+          dropdownItems.push({
+            label: 'Admin',
+            path: '/admin/',
+          });
+        }
 
+        return {
+          ...item,
+          dropdownItems,
+        };
+      }
+      return item;
+    })
+  );
+}, [user]);
+
+useEffect(() => {
+  setNavItems((prevItems) =>
+    prevItems.map((item) => {
+      if (item.type === 'dropdown') {
         // Set dropdown footer based on user login state
         const dropdownFooter = user?.isLoggedIn
           ? [
@@ -454,14 +477,14 @@ const Navigation = () => {
 
         return {
           ...item,
-          dropdownItems,
           dropdownFooter,
         };
       }
       return item;
     })
   );
-}, [user?.isLoggedIn, user?.role]);
+}, [user?.isLoggedIn]);
+
 
 
   const navigateTo = (path) => {
