@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Icon } from '@iconify/react';
 import ModalDialog from './reusable/Dialog';
 import AdminEditBook from './admin-edit-book/AdminEditBook';
+import axios from 'axios';
 
 const TabularBookCard = ({ book, dataUpdated }) => {
   const {
@@ -26,7 +27,20 @@ const TabularBookCard = ({ book, dataUpdated }) => {
     setOpenBook(false);
   }
 
+  const deleteABook = async (e) => {
+    e.stopPropagation();
+    try {
+        const url = `/api/book/${_id}`
+    const response = await axios.delete(url);
+    console.log('Deleted successfully:', response.data);
+    dataUpdated();
+  } catch (error) {
+    console.error('Error deleting item:', error);
+  }
+  }
+
   const roundedRating = Math.round(rating * 100) / 100;
+  console.log("book", book)
 
   return (
     <div className="w-full p-4 mb-4 border rounded shadow hover:shadow-md text-left even:bg-background-dark odd:bg-primary text-text-400 hover:text-text-600 hover:bg-background-muted transition-colors duration-200 cursor-pointer"
@@ -81,6 +95,7 @@ const TabularBookCard = ({ book, dataUpdated }) => {
         >
             <button
                 className='text-red-500 border border-red-500 rounded-full p-1.5'
+                onClick={deleteABook}
             >
                 <Icon icon="fluent:delete-48-regular" className='w-full h-full' />
             </button>

@@ -38,8 +38,8 @@ const AdminEditBook = ({ book, reviews, onSubmit }) => {
     // Append basic fields
     formData.append('title', title);
     formData.append('description', description);
-    formData.append('author', JSON.stringify(authors)); // if authors is an array
-    formData.append('genre', JSON.stringify(genres));   // if genres is an array
+    genres.forEach((g, i) => formData.append(`genre[${i}]`, g));
+    authors.forEach((a, i) => formData.append(`author[${i}]`, a));  // if genres is an array
 
     // Append coverImage only if it exists
     if (coverImage) {
