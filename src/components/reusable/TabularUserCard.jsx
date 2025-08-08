@@ -68,7 +68,7 @@ const TabularUserCard = ({ user, dataUpdated }) => {
         isOpen={openUser}
         title="Edit User"
         close={closeAUser}
-        maxWidth="max-w-screen-md"
+        
       >
         <AdminEditUser
           user={user}

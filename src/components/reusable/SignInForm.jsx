@@ -43,7 +43,7 @@ const SignInForm = ({ onClose }) => {
   // }
 
   return (
-    <div className="flex min-h-full flex-col justify-center px-6 py-5 lg:px-8 bg-background-dark rounded-md">
+    <div className="flex min-h-full flex-col justify-center px-6 py-5 lg:px-8 text-background-muted rounded-md">
       {/* <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-black">
           Sign in to your account
@@ -53,7 +53,7 @@ const SignInForm = ({ onClose }) => {
       <div className="mt-0 sm:mx-auto sm:w-full sm:max-w-sm">
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label htmlFor="email" className="block text-sm/6 font-medium text-text-600">
+            <label htmlFor="email" className="block text-sm/6 font-medium">
               Email address
             </label>
             <div className="mt-2">
@@ -73,7 +73,7 @@ const SignInForm = ({ onClose }) => {
 
           <div>
             <div className="flex items-center justify-between">
-              <label htmlFor="password" className="block text-sm/6 font-medium text-text-600">
+              <label htmlFor="password" className="block text-sm/6 font-medium">
                 Password
               </label>
               {/* <div className="text-sm">

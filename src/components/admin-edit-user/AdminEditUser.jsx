@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 
 const EditUserForm = ({ user, onSubmit }) => {
@@ -8,23 +9,39 @@ const EditUserForm = ({ user, onSubmit }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (password && password !== confirmPassword) {
-      alert("Passwords do not match.");
+      console.log("Passwords do not match.");
       return;
     }
 
-    const updatedUser = {
-      ...user,
-      name,
-      email,
-      role,
-      ...(password ? { password } : {}),
-    };
+    
+    try
+    {
+      const updatedUser = {
+       ...user,
+       name,
+       email,
+       role,
+       ...(password ? { password } : {}),
+      };
+      const url = `/api/user/update-via-admin/${user._id}`;
+      const response = await axios.patch(url, updatedUser,{
+        withCredentials: true
+          })
+      console.log(response);
+      onSubmit();
+    }
+    catch(e)
+    {
+      console.log(e)
+    }
 
-    onSubmit(updatedUser);
+    // console.log(updatedUser)
+
+    // onSubmit(updatedUser);
   };
 
   const requiredFields = name && email;
@@ -70,8 +87,8 @@ const EditUserForm = ({ user, onSubmit }) => {
                   value={role}
                   onChange={(e) => setRole(e.target.value)}
                 >
-                  <option value="user">User</option>
-                  <option value="admin">Admin</option>
+                  <option value="User">User</option>
+                  <option value="Admin">Admin</option>
                 </select>
               </div>
 

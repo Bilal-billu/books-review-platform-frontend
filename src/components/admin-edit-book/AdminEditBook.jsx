@@ -68,115 +68,115 @@ const AdminEditBook = ({ book, reviews, onSubmit }) => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto mt-10 p-6 bg-foreground-soft shadow-md rounded-lg flex flex-col md:flex-row text-background-muted">
-      <div className="md:w-1/3 mb-6 md:mb-0">
-        <img
-          src={
-            coverImage
-              ? URL.createObjectURL(coverImage)
-              : book?.image || `https://myonlinebookshop.pk/cdn/shop/files/IMG-20250130-WA0023.jpg`
-          }
-          alt={`Cover of ${book.title}`}
-          className="rounded w-full h-auto object-cover"
-        />
+    <div className="max-w-5xl mx-auto mt-10 p-6 bg-text-500 shadow-md rounded-lg flex flex-col md:flex-row text-background-muted">
+  <div className="md:w-1/3 mb-6 md:mb-0">
+    <img
+      src={
+        coverImage
+          ? URL.createObjectURL(coverImage)
+          : book?.image || `https://myonlinebookshop.pk/cdn/shop/files/IMG-20250130-WA0023.jpg`
+      }
+      alt={`Cover of ${book.title}`}
+      className="rounded w-full h-auto object-cover"
+    />
+    <input
+      type="file"
+      accept="image/*"
+      onChange={(e) => setCoverImage(e.target.files[0])}
+      className="mt-4 block w-full text-sm text-background-muted border border-gray-300 rounded-lg cursor-pointer bg-foreground-soft focus:ring-blue-600 focus:border-blue-600"
+    />
+  </div>
+
+  <div className="md:w-2/3 md:pl-8">
+    <form onSubmit={handleSubmit} className="space-y-5">
+      <div>
+        <label htmlFor="title" className="block text-sm font-medium">
+          Title
+        </label>
         <input
-          type="file"
-          accept="image/*"
-          onChange={(e) => setCoverImage(e.target.files[0])}
-          className="mt-4 block w-full text-sm text-background-muted border border-gray-300 rounded-lg cursor-pointer bg-foreground-soft focus:outline-none"
+          type="text"
+          id="title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          required
+          className="w-full p-2 border border-gray-300 rounded-lg bg-text-500 text-background-muted focus:ring-blue-600 focus:border-blue-600"
         />
       </div>
 
-      <div className="md:w-2/3 md:pl-8">
-        <form onSubmit={handleSubmit} className="space-y-5">
-          <div>
-            <label htmlFor="title" className="block text-sm font-medium">
-              Title
-            </label>
-            <input
-              type="text"
-              id="title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              required
-              className="w-full p-2 border border-gray-300 rounded-md bg-background-dark text-background-muted"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium">Authors</label>
-            {authors.map((author, index) => (
-              <input
-                key={index}
-                type="text"
-                value={author}
-                onChange={(e) => handleAuthorChange(index, e.target.value)}
-                placeholder={`Author ${index + 1}`}
-                className="w-full p-2 mb-2 border border-gray-300 rounded-md bg-background-dark text-background-muted"
-              />
-            ))}
-            <button
-              type="button"
-              onClick={addAuthorField}
-              className="text-blue-600 text-sm hover:underline"
-            >
-              + Add Author
-            </button>
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium">Genres</label>
-            {genres.map((genre, index) => (
-              <input
-                key={index}
-                type="text"
-                value={genre}
-                onChange={(e) => handleGenreChange(index, e.target.value)}
-                placeholder={`Genre ${index + 1}`}
-                className="w-full p-2 mb-2 border border-gray-300 rounded-md bg-background-dark text-background-muted"
-              />
-            ))}
-            <button
-              type="button"
-              onClick={addGenreField}
-              className="text-blue-600 text-sm hover:underline"
-            >
-              + Add Genre
-            </button>
-          </div>
-
-          <div>
-            <label htmlFor="description" className="block text-sm font-medium">
-              Description
-            </label>
-            <textarea
-              id="description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              rows="4"
-              className="w-full p-2 border border-gray-300 rounded-md bg-background-dark text-background-muted"
-              placeholder="Enter book description"
-            ></textarea>
-          </div>
-
-          {/* Immutable fields: _id, userId, rating (can be hidden or shown read-only) */}
-          <input type="hidden" name="_id" value={book._id} />
-          <input type="hidden" name="userId" value={book.userId} />
-          <input type="hidden" name="rating" value={book.rating} />
-
-          {error && <p className="text-red-500 text-sm text-center">{error}</p>}
-
-          <div>
-            <button
-              type="submit"
-              className="w-full text-white bg-accent hover:bg-accent-dark focus:ring-4 focus:outline-none focus:ring-accent-light font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-colors duration-200"
-            >
-              Save Changes
-            </button>
-          </div>
-        </form>
+      <div>
+        <label className="block text-sm font-medium">Authors</label>
+        {authors.map((author, index) => (
+          <input
+            key={index}
+            type="text"
+            value={author}
+            onChange={(e) => handleAuthorChange(index, e.target.value)}
+            placeholder={`Author ${index + 1}`}
+            className="w-full p-2 mb-2 border border-gray-300 rounded-lg bg-text-500 text-background-muted focus:ring-blue-600 focus:border-blue-600"
+          />
+        ))}
+        <button
+          type="button"
+          onClick={addAuthorField}
+          className="text-blue-600 text-sm hover:underline"
+        >
+          + Add Author
+        </button>
       </div>
-    </div>
+
+      <div>
+        <label className="block text-sm font-medium">Genres</label>
+        {genres.map((genre, index) => (
+          <input
+            key={index}
+            type="text"
+            value={genre}
+            onChange={(e) => handleGenreChange(index, e.target.value)}
+            placeholder={`Genre ${index + 1}`}
+            className="w-full p-2 mb-2 border border-gray-300 rounded-lg bg-text-500 text-background-muted focus:ring-blue-600 focus:border-blue-600"
+          />
+        ))}
+        <button
+          type="button"
+          onClick={addGenreField}
+          className="text-blue-600 text-sm hover:underline"
+        >
+          + Add Genre
+        </button>
+      </div>
+
+      <div>
+        <label htmlFor="description" className="block text-sm font-medium">
+          Description
+        </label>
+        <textarea
+          id="description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          rows="4"
+          className="w-full p-2 border border-gray-300 rounded-lg bg-text-500 text-background-muted focus:ring-blue-600 focus:border-blue-600"
+          placeholder="Enter book description"
+        ></textarea>
+      </div>
+
+      <input type="hidden" name="_id" value={book._id} />
+      <input type="hidden" name="userId" value={book.userId} />
+      <input type="hidden" name="rating" value={book.rating} />
+
+      {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+
+      <div>
+        <button
+          type="submit"
+          className="w-full text-white bg-accent-dark hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-colors duration-200"
+        >
+          Save Changes
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
   );
 };
 
