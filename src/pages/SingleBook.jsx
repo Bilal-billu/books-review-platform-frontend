@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useUserAuth } from '../context/AuthContext';
 import ReviewCard from '../components/reusable/ReviewCard';
@@ -17,6 +17,7 @@ const SingleBook = () => {
   const [reviews, setReviews] = useState([]);
 
   const user = useUserAuth();
+  const navigate = useNavigate();
   const handleCancel = () => {
     setStarsCount(0);
     setText('');
@@ -68,6 +69,10 @@ const SingleBook = () => {
     }
   };
 
+  const searchMoreBooks = (params) =>{
+    navigate(`/search-book?${params}`)
+  }
+
 
   // const isDisabled = !(user.isLoggedIn) || text.length === 0
 
@@ -96,18 +101,28 @@ const SingleBook = () => {
       </div>
       <div className="md:w-2/3 md:pl-8">
         <h2 className="text-3xl font-bold mb-4 text-theme-primary">{book.title}</h2>
-        <p className="mb-2"><span className="font-semibold">Author:</span> {book.author.map((item, i) =>(<span
-            className={`${i!==0 && "ms-1"}`}
+        <p className="mb-2"><span className="font-semibold">Author:</span> {book.author.map((item, i) =>(
+          <button
+            className={`${i!==0 && "ms-1"} hover:underline hover:text-theme-primary`}
+            onClick={(e)=>{
+              e.stopPropagation();
+              searchMoreBooks(`author=${item}`)
+            }}
+            
         >
             {item}{(i<book.author.length -1) && ','}
-        </span>)
+        </button>)
     )}</p>
         <p className="mb-2"><span className="font-semibold">Genre:</span> {book.genre.map((item, i) =>(
-          <span
-            className={`${i!==0 && "ms-1"}`}
+          <button
+            className={`${i!==0 && "ms-1"}  hover:underline hover:text-theme-primary`}
+            onClick={(e)=>{
+              e.stopPropagation();
+              searchMoreBooks(`genre=${item}`)
+            }}
         >
             {item}{(i<book.genre.length -1) && ','}
-        </span>))}
+        </button>))}
         </p>
         <div className="mb-2 flex justify-start items-center">
           <StarRating rating={book.rating} />

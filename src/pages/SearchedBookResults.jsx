@@ -7,14 +7,12 @@ import HeroHome from "../components/hero/HeroHome";
 import { Loading } from "../components/reusable/loading/Loading";
 import LoadingSkeleton from "../components/reusable/loading/LoadingSkeleton";
 import Error from "../components/reusable/error/Error";
-import { Icon } from "@iconify/react/dist/iconify.js";
 
-const Home = () => {
+const SearchedBookResults = () => {
   const [allBooks, setAllBooks] = useState([])
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [searchText, setSearchText] = useState('');
-  // const [searchParam, setSearchParams] = useSearchParams();
+  const [searchParam, setSearchParams] = useSearchParams();
   const [meta, setMeta] = useState({
     page: 0,
     limit: 0,
@@ -24,9 +22,10 @@ const Home = () => {
   {
     try
     {
-      // const author = searchParam.get('author');
-      // const genre = searchParam.get('genre');
-      let url = `/api/book/?`;
+      const author = searchParam.get('author');
+      const genre = searchParam.get('genre');
+      console.log("author, genre", author, genre);
+      let url = `/api/book/search-book?`;
 
       if(meta.limit)
       {
@@ -36,11 +35,17 @@ const Home = () => {
       {
         url = url + `&page=${meta.page}`
       }
-      if(searchText)
-      {
-        url += `&q=${searchText}` 
-      }
       
+      if(author)
+      {
+        url += `&author=${author}`
+      }
+
+      if(genre)
+      {
+        url += `&genre=${genre}`
+      }
+      console.log(url)
       const response = await axios.get(url)
       console.log(response);
       setAllBooks(response.data.data.books);
@@ -58,7 +63,7 @@ const Home = () => {
   }
   useEffect(()=>{
     getBooks();
-  }, [searchText])
+  }, [])
 
   // if(!allBooks || allBooks.length === 0)
   // {
@@ -91,19 +96,7 @@ const Home = () => {
         <h1 className="text-xl">
           Checkout these books
         </h1>
-        <div className="relative block border rounded-lg overflow-hidden">
-          <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-            <Icon icon="uil:search" className= {` w-4 h-4`} />
-            <span className="sr-only">Search icon</span>
-          </div>
-          <input type="text" id="search-navbar" class="block w-full p-2 ps-10 text-sm rounded-lg"
-          placeholder="Search for title, genre etc..."
-            value={searchText}
-            onChange={(e)=>{
-              setSearchText(e.target.value);
-            }}
-          />
-        </div>
+        
 
       </div>
 
@@ -128,4 +121,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default SearchedBookResults

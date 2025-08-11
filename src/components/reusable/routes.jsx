@@ -2,6 +2,7 @@ import AdminBooks from "../../pages/AdminBooks";
 import AdminUsers from "../../pages/AdminUsers";
 import Home from "../../pages/Home";
 import Page404 from "../../pages/Page404";
+import SearchedBookResults from "../../pages/SearchedBookResults";
 import SingleBook from "../../pages/SingleBook";
 import UserLayout from "./layout/UserLayout";
 
@@ -10,6 +11,13 @@ const routesUnprotected = [
         path: `/`,
         page: ()=> (
         <UserLayout el={<Home />} />
+        ),
+        isDisabled: false,
+    },
+    {
+        path: `/search-book`,
+        page: ()=> (
+        <UserLayout el={<SearchedBookResults />} />
         ),
         isDisabled: false,
     },
