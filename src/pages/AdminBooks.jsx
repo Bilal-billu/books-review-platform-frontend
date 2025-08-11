@@ -3,10 +3,15 @@ import AddBook from '../components/add-book/AddBook';
 import ModalDialog from '../components/reusable/Dialog';
 import TabularBookCard from '../components/reusable/TabularBookCard';
 import axios from 'axios';
+import LoadingSkeleton from '../components/reusable/loading/LoadingSkeleton';
+import { Loading } from '../components/reusable/loading/Loading';
+import Error from '../components/reusable/error/Error';
 
 const AdminBooks = () => {
   const [showAddBook, setShowAddBook] = useState(false);
   const [allBooks, setAllBooks] = useState([])
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   const [meta, setMeta] = useState({
     page: 0,
@@ -39,13 +44,35 @@ const AdminBooks = () => {
     }
     catch(e)
     {
+      setError(true);
       console.log(e)
+    }
+    finally
+    {
+      setLoading(false)
     }
   }
   useEffect(()=>{
     getBooks();
   }, [])
 
+
+  if(loading)
+  {
+    return (
+      <LoadingSkeleton>
+        <Loading />
+      </LoadingSkeleton>
+    )
+  }
+  if(error)
+  {
+    return (
+      <LoadingSkeleton>
+        <Error />
+      </LoadingSkeleton>
+    )
+  }
   return (
     <div>
       <div>

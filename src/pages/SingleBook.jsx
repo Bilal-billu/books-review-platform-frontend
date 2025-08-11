@@ -4,6 +4,8 @@ import axios from 'axios';
 import { useUserAuth } from '../context/AuthContext';
 import ReviewCard from '../components/reusable/ReviewCard';
 import { Icon } from '@iconify/react/dist/iconify.js';
+import LoadingSkeleton from '../components/reusable/loading/LoadingSkeleton';
+import { Loading } from '../components/reusable/loading/Loading';
 
 const SingleBook = () => {
   const location = useLocation();
@@ -69,8 +71,18 @@ const SingleBook = () => {
 
   // const isDisabled = !(user.isLoggedIn) || text.length === 0
 
-  if (loading) return <div className="text-center mt-10 text-gray-600">Loading...</div>;
-  if (error) return <div className="text-center mt-10 text-red-600">{error}</div>;
+  if (loading) return(
+    <LoadingSkeleton>
+      <Loading />
+    </LoadingSkeleton>
+  );
+  if (error){
+    return (
+      <LoadingSkeleton>
+        <Error />
+      </LoadingSkeleton>
+    )
+  }
 
   return (
     <div>

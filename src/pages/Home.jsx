@@ -4,9 +4,14 @@ import { useEffect } from "react"
 import axios from "axios"
 import { useSearchParams } from "react-router-dom";
 import HeroHome from "../components/hero/HeroHome";
+import { Loading } from "../components/reusable/loading/Loading";
+import LoadingSkeleton from "../components/reusable/loading/LoadingSkeleton";
+import Error from "../components/reusable/error/Error";
 
 const Home = () => {
   const [allBooks, setAllBooks] = useState([])
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false)
   // const [searchParam, setSearchParams] = useSearchParams();
   const [meta, setMeta] = useState({
     page: 0,
@@ -39,19 +44,36 @@ const Home = () => {
     }
     catch(e)
     {
-      console.log(e)
+      console.log(e);
+      setError(true);
+    }
+    finally
+    {
+      setLoading(false);
     }
   }
   useEffect(()=>{
     getBooks();
   }, [])
 
-  if(!allBooks || allBooks.length === 0)
-  {
+  // if(!allBooks || allBooks.length === 0)
+  // {
+  //   return (
+  //     <LoadingSkeleton>
+  //       <Loading />
+  //     </LoadingSkeleton>
+  //   )
+  // }
+  if (loading) return(
+    <LoadingSkeleton>
+      <Loading />
+    </LoadingSkeleton>
+  );
+  if (error){
     return (
-      <div>
-        Loading...
-      </div>
+      <LoadingSkeleton>
+        <Error />
+      </LoadingSkeleton>
     )
   }
   return (
@@ -70,9 +92,17 @@ const Home = () => {
           className={` w-full grid grid-cols-6 gap-4`}
         >
           {
+            allBooks && allBooks.length > 0 ?
             allBooks.map((item, i) => (
               <BookCard item={item} key={i} />
             ))
+            : (
+              <div>
+                <h5>
+                  No books found in database.
+                </h5>
+              </div>
+            )
           }
         </div>
     </div>
@@ -80,106 +110,3 @@ const Home = () => {
 }
 
 export default Home
-
-
-const dummyBooks = [
-  {
-    image: `https://myonlinebookshop.pk/cdn/shop/files/IMG-20250130-WA0023.jpg`,
-    name: `Rich Dad Poor Dad`,
-    author: `Robert T. K.`,
-    price: `400`,
-    rating: 4,
-  },
-  {
-    image: `https://myonlinebookshop.pk/cdn/shop/files/IMG-20250130-WA0023.jpg`,
-    name: `Rich Dad Poor Dad`,
-    author: `Robert T. K.`,
-    price: `400`,
-    rating: 2,
-  },
-  {
-    image: `https://myonlinebookshop.pk/cdn/shop/files/IMG-20250130-WA0023.jpg`,
-    name: `Rich Dad Poor Dad`,
-    author: `Robert T. K.`,
-    price: `400`,
-    rating: 5,
-  },
-  {
-    image: `https://myonlinebookshop.pk/cdn/shop/files/IMG-20250130-WA0023.jpg`,
-    name: `Rich Dad Poor Dad`,
-    author: `Robert T. K.`,
-    price: `400`,
-    rating: 1,
-  },
-  {
-    image: `https://myonlinebookshop.pk/cdn/shop/files/IMG-20250130-WA0023.jpg`,
-    name: `Rich Dad Poor Dad`,
-    author: `Robert T. K.`,
-    price: `400`,
-    rating: 4,
-  },
-  {
-    image: `https://myonlinebookshop.pk/cdn/shop/files/IMG-20250130-WA0023.jpg`,
-    name: `Rich Dad Poor Dad`,
-    author: `Robert T. K.`,
-    price: `400`,
-    rating: 4,
-  },
-  {
-    image: `https://myonlinebookshop.pk/cdn/shop/files/IMG-20250130-WA0023.jpg`,
-    name: `Rich Dad Poor Dad`,
-    author: `Robert T. K.`,
-    price: `400`,
-    rating: 4,
-  },
-  {
-    image: `https://myonlinebookshop.pk/cdn/shop/files/IMG-20250130-WA0023.jpg`,
-    name: `Rich Dad Poor Dad`,
-    author: `Robert T. K.`,
-    price: `400`,
-    rating: 4,
-  },
-  {
-    image: `https://myonlinebookshop.pk/cdn/shop/files/IMG-20250130-WA0023.jpg`,
-    name: `Rich Dad Poor Dad`,
-    author: `Robert T. K.`,
-    price: `400`,
-    rating: 4,
-  },
-  {
-    image: `https://myonlinebookshop.pk/cdn/shop/files/IMG-20250130-WA0023.jpg`,
-    name: `Rich Dad Poor Dad`,
-    author: `Robert T. K.`,
-    price: `400`,
-    rating: 4,
-  },
-  {
-    image: `https://myonlinebookshop.pk/cdn/shop/files/IMG-20250130-WA0023.jpg`,
-    name: `Rich Dad Poor Dad`,
-    author: `Robert T. K.`,
-    price: `400`,
-    rating: 4,
-  },
-  {
-    image: `https://myonlinebookshop.pk/cdn/shop/files/IMG-20250130-WA0023.jpg`,
-    name: `Rich Dad Poor Dad`,
-    author: `Robert T. K.`,
-    price: `400`,
-    rating: 4,
-  },
-  {
-    image: `https://myonlinebookshop.pk/cdn/shop/files/IMG-20250130-WA0023.jpg`,
-    name: `Rich Dad Poor Dad`,
-    author: `Robert T. K.`,
-    price: `400`,
-    rating: 4,
-  },
-  {
-    image: `https://myonlinebookshop.pk/cdn/shop/files/IMG-20250130-WA0023.jpg`,
-    name: `Rich Dad Poor Dad`,
-    author: `Robert T. K.`,
-    price: `400`,
-    rating: 4,
-  },
-  
-]
