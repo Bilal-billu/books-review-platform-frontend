@@ -16,7 +16,7 @@ export default () => {
       modules={[Navigation, Pagination, Scrollbar, Autoplay ]}
       navigation = {true}
       pagination={{ clickable: true }}
-      autoplay={{ delay: 2000, disableOnInteraction: false }}
+      autoplay={{ delay: 2000, disableOnInteraction: true }}
       loop = {true}
     >
       {
