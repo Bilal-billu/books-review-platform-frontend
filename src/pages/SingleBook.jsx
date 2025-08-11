@@ -74,7 +74,7 @@ const SingleBook = () => {
 
   return (
     <div>
-      <div className="max-w-5xl mx-auto mt-10 p-6 bg-foreground-soft shadow-md rounded-lg flex flex-col md:flex-row text-background-muted">
+      <div className="max-w-5xl mx-auto mt-10 p-6 bg-theme-foreground shadow-md rounded-lg flex flex-col md:flex-row text-theme-text-primary">
       <div className="md:w-1/3 mb-6 md:mb-0">
         <img
           src={book?.image || `https://myonlinebookshop.pk/cdn/shop/files/IMG-20250130-WA0023.jpg`}
@@ -83,14 +83,15 @@ const SingleBook = () => {
         />
       </div>
       <div className="md:w-2/3 md:pl-8">
-        <h2 className="text-3xl font-bold mb-4">{book.title}</h2>
+        <h2 className="text-3xl font-bold mb-4 text-theme-primary">{book.title}</h2>
         <p className="mb-2"><span className="font-semibold">Author:</span> {book.author.map((item, i) =>(<span
             className={`${i!==0 && "ms-1"}`}
         >
             {item}{(i<book.author.length -1) && ','}
         </span>)
     )}</p>
-        <p className="mb-2"><span className="font-semibold">Genre:</span> {book.genre.map((item, i) =>(<span
+        <p className="mb-2"><span className="font-semibold">Genre:</span> {book.genre.map((item, i) =>(
+          <span
             className={`${i!==0 && "ms-1"}`}
         >
             {item}{(i<book.genre.length -1) && ','}
@@ -105,21 +106,21 @@ const SingleBook = () => {
     </div>
 
     <div>
-      <div className="max-w-5xl mx-auto mt-10 p-6 bg-foreground-soft text-background-muted shadow-md rounded-lg flex flex-col">
+      <div className="max-w-5xl mx-auto mt-10 p-6 bg-theme-foreground shadow-md rounded-lg flex flex-col">
       {/* <h5>
         This will be the review section
       </h5> */}
       <div
         className={`p-3 space-y-2 border rounded-lg shadow-sm w-full transition-all duration-200 
           
-          ${(user.isLoggedIn) ? "bg-background border-gray-300" : "bg-foreground-muted border-0"}
+          ${(user.isLoggedIn) ? "bg-theme-foreground border-gray-300" : "bg-black bg-opacity-5 border-0"}
         `}
       >
         {/* Textarea */}
         <textarea
           className={`
             w-full p-3 text-sm rounded-md border resize-none transition-colors duration-200
-            focus:outline-none focus:border-2 focus:border-accent-dark
+            focus:outline-none focus:border-2 focus:border-theme-primary
             ${!(user.isLoggedIn)
               ? "bg-transparent border-gray-400 text-gray-600 cursor-not-allowed"
               : "bg-transparent border-gray-300 text-text-500"}
@@ -172,10 +173,11 @@ const SingleBook = () => {
             disabled={text.length === 0 && starsCount < 1}
             className={`
               px-5 py-2 text-sm font-medium rounded-md shadow-sm border transition-all duration-200 focus:outline-none
-              disabled:bg-rose-100 disabled:hover:bg-rose-100 disabled:text-rose-300 disabled:border-rose-00
+              text-theme-primary border-theme-primary hover:bg-theme-primary-hovered hover:text-white focus:ring-2 focus:ring-theme-primary
+              disabled:bg-theme-background disabled:bg-opacity-5 disabled:hover:bg-theme-background disabled:text-theme-primary disabled:text-opacity-20 disabled:border-theme-primary disabled:border-opacity-20
               ${text.length === 0 && starsCount < 1
                 ? " cursor-not-allowed"
-                : "text-red-600 border-red-600 bg-red-100 hover:bg-accent-dark hover:text-white focus:ring-2 focus:ring-rose-300"}
+                : ""}
             `}
           >
             Cancel
@@ -186,7 +188,8 @@ const SingleBook = () => {
             disabled={!text.trim() || !(user.isLoggedIn) || starsCount < 1}
             className={`
               px-5 py-2 text-sm font-medium rounded-md shadow transition-all duration-200
-              bg-accent hover:bg-accent-dark disabled:bg-accent-light disabled:hover:bg-accent-light disabled:text-text-400
+              bg-theme-primary hover:bg-theme-primary-hovered text-theme-text-secondary
+              disabled:bg-opacity-20 disabled:text-opacity-80
               ${(!text.trim() || !(user.isLoggedIn) || starsCount < 1)
                 ? "ring-0 cursor-not-allowed"
                 : "bg-blue-600 hover:bg-blue-700 focus:ring-2 focus:ring-blue-400"}
@@ -200,8 +203,8 @@ const SingleBook = () => {
       <div className='space-y-0.5 mt-5'>
         {
           reviews && reviews.length > 0 ? (
-            reviews.map(item => (
-              <ReviewCard review = {item} key={item.email} />
+            reviews.map((item, i) => (
+              <ReviewCard review = {item} key={item.email || i} />
             ))
           ) : (
             <h5 className='text-center text-gray-400'>This book has't been reviewed yet.</h5>

@@ -32,6 +32,30 @@ export default {
         DEFAULT: '#2563EB', // brand/main color
         contrast: '#FFFFFF', // text on primary (e.g., buttons)
       },
+
+      theme: {
+        primary: {
+          DEFAULT: '#c6005c',
+          hovered: "#ab004f",
+        },
+        background: {
+          DEFAULT: '#FAF9F6',
+        },
+        foreground: {
+          DEFAULT: '#FFFFFF'
+        },
+        text: {
+          primary: "#000000",
+          secondary: "#FFFFFF",
+          unrelated: {
+            DEFAULT: "#F3F4F6",
+            dark: "#45556c",
+          },
+          hovered: "#FFFCEA",
+
+        },
+
+      }
     },
   },
 },

@@ -38,7 +38,7 @@ const AdminUsers = () => {
       <div>
         <div className="w-full flex justify-end p-4">
           <button 
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            className="px-4 py-2 rounded border border-theme-primary text-theme-text-secondary bg-theme-primary hover:bg-theme-primary-hovered disabled:bg-theme-foreground disabled:text-theme-primary disabled:hover:bg-theme-foreground "
             onClick={() => setShowAddUser(true)}
           >
             Add User

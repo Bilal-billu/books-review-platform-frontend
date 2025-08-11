@@ -35,7 +35,7 @@ const TabularUserCard = ({ user, dataUpdated }) => {
 
   return (
     <div
-      className="w-full p-4 mb-4 border rounded shadow hover:shadow-md text-left even:bg-background-dark odd:bg-primary text-white hover:text-text-600 hover:bg-background-muted transition-colors duration-200 cursor-pointer"
+      className="w-full p-4 mb-4 border rounded shadow hover:shadow-md text-left even:bg-theme-background odd:bg-theme-foreground even:text-theme-text-unrelated-dark odd:text-theme-text-primary hover:text-theme-text-secondary hover:bg-theme-primary transition-colors duration-200 cursor-pointer group"
       onClick={openAUser}
     >
       <div className="grid grid-cols-9 gap-4 items-center">
@@ -53,7 +53,7 @@ const TabularUserCard = ({ user, dataUpdated }) => {
         </div>
         <div className="col-span-1">
           <button
-            className="text-red-500 border border-red-500 rounded-full p-1.5"
+            className="text-theme-primary border border-theme-primary group-hover:text-theme-text-secondary group-hover:border-theme-text-secondary rounded-full p-1.5"
             onClick={(e) => {
               e.stopPropagation(); // prevent modal opening
               deleteUser();

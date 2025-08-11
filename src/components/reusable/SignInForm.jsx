@@ -43,7 +43,7 @@ const SignInForm = ({ onClose }) => {
   // }
 
   return (
-    <div className="flex min-h-full flex-col justify-center px-6 py-5 lg:px-8 text-background-muted rounded-md">
+    <div className="flex min-h-full flex-col justify-center px-6 py-5 lg:px-8 text-theme-text-primary rounded-md">
       {/* <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-black">
           Sign in to your account
@@ -66,7 +66,7 @@ const SignInForm = ({ onClose }) => {
                 placeholder="name@company.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="bg-text-500 border border-gray-300 text-background-muted text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2 "
+                className="text-theme-text-primary border border-theme-primary  text-sm rounded-lg focus:border-theme-primary-hovered block w-full p-2 focus:outline-none  "
               />
             </div>
           </div>
@@ -92,7 +92,7 @@ const SignInForm = ({ onClose }) => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="bg-text-500 border border-gray-300 text-background-muted text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2"
+                className="text-theme-text-primary border border-theme-primary  text-sm rounded-lg focus:border-theme-primary-hovered block w-full p-2 focus:outline-none "
               />
             </div>
           </div>
@@ -101,7 +101,7 @@ const SignInForm = ({ onClose }) => {
             <button
               type="submit"
               disabled = {!requiredFields}
-              className="w-full text-white bg-accent-dark hover:bg-blue-700  disabled:bg-accent disabled:text-text-500 disabled:hover:bg-accent focus:ring-4 focus:outline-none focus:ring-accent-light font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-colors duration-200 "
+              className="w-full border border-theme-primary text-theme-text-secondary bg-theme-primary hover:bg-theme-primary-hovered  disabled:bg-theme-foreground disabled:text-theme-primary disabled:hover:bg-theme-foreground focus:ring-2 focus:outline-none focus:ring-theme-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center  "
             >
               Sign in
             </button>

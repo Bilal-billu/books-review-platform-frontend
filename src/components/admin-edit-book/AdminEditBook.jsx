@@ -68,7 +68,7 @@ const AdminEditBook = ({ book, reviews, onSubmit }) => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto mt-10 p-6 bg-text-500 shadow-md rounded-lg flex flex-col md:flex-row text-background-muted">
+    <div className="max-w-5xl mx-auto py-10 p-6 shadow-md rounded-lg flex flex-col md:flex-row text-theme-text-primary">
   <div className="md:w-1/3 mb-6 md:mb-0">
     <img
       src={
@@ -83,7 +83,7 @@ const AdminEditBook = ({ book, reviews, onSubmit }) => {
       type="file"
       accept="image/*"
       onChange={(e) => setCoverImage(e.target.files[0])}
-      className="mt-4 block w-full text-sm text-background-muted border border-gray-300 rounded-lg cursor-pointer bg-foreground-soft focus:ring-blue-600 focus:border-blue-600"
+      className="mt-4 px-1 py-1 block w-full text-sm text-theme-primary border border-theme-primary rounded-lg cursor-pointer focus:ring-theme-primary focus:border-theme-primary"
     />
   </div>
 
@@ -99,7 +99,7 @@ const AdminEditBook = ({ book, reviews, onSubmit }) => {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
-          className="w-full p-2 border border-gray-300 rounded-lg bg-text-500 text-background-muted focus:ring-blue-600 focus:border-blue-600"
+          className="w-full p-2 border border-theme-primary rounded-lg   focus:ring-theme-primary focus:border-theme-primary focus:outline-none"
         />
       </div>
 
@@ -112,13 +112,13 @@ const AdminEditBook = ({ book, reviews, onSubmit }) => {
             value={author}
             onChange={(e) => handleAuthorChange(index, e.target.value)}
             placeholder={`Author ${index + 1}`}
-            className="w-full p-2 mb-2 border border-gray-300 rounded-lg bg-text-500 text-background-muted focus:ring-blue-600 focus:border-blue-600"
+            className="w-full p-2 mb-2 border border-theme-primary rounded-lg   focus:ring-theme-primary focus:border-theme-primary focus:outline-none"
           />
         ))}
         <button
           type="button"
           onClick={addAuthorField}
-          className="text-blue-600 text-sm hover:underline"
+          className="text-theme-primary text-sm hover:underline"
         >
           + Add Author
         </button>
@@ -133,13 +133,13 @@ const AdminEditBook = ({ book, reviews, onSubmit }) => {
             value={genre}
             onChange={(e) => handleGenreChange(index, e.target.value)}
             placeholder={`Genre ${index + 1}`}
-            className="w-full p-2 mb-2 border border-gray-300 rounded-lg bg-text-500 text-background-muted focus:ring-blue-600 focus:border-blue-600"
+            className="w-full p-2 mb-2 border border-theme-primary rounded-lg   focus:ring-theme-primary focus:border-theme-primary focus:outline-none"
           />
         ))}
         <button
           type="button"
           onClick={addGenreField}
-          className="text-blue-600 text-sm hover:underline"
+          className="text-theme-primary text-sm hover:underline"
         >
           + Add Genre
         </button>
@@ -154,7 +154,7 @@ const AdminEditBook = ({ book, reviews, onSubmit }) => {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           rows="4"
-          className="w-full p-2 border border-gray-300 rounded-lg bg-text-500 text-background-muted focus:ring-blue-600 focus:border-blue-600"
+          className="w-full p-2 border border-theme-primary rounded-lg   focus:ring-theme-primary focus:border-theme-primary focus:outline-none"
           placeholder="Enter book description"
         ></textarea>
       </div>
@@ -168,7 +168,7 @@ const AdminEditBook = ({ book, reviews, onSubmit }) => {
       <div>
         <button
           type="submit"
-          className="w-full text-white bg-accent-dark hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-colors duration-200"
+          className="w-full text-theme-text-secondary bg-theme-primary hover:bg-theme-primary-hovered focus:ring-4 focus:outline-none focus:ring-theme-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-colors duration-200"
         >
           Save Changes
         </button>

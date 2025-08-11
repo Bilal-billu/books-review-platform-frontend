@@ -19,7 +19,7 @@ import AdminUsers from "./pages/AdminUsers.jsx";
 function App() {
 
   return (
-    <div className="bg-background min-h-screen">
+    <div className="bg-theme-background min-h-screen px-10">
       <AuthProvider>
         <Theme accentColor="indigo" >
       <BrowserRouter>
@@ -176,20 +176,20 @@ const ProtectedAdminRoute = ({ children }) => {
     className="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
     aria-label="Sidebar"
   >
-    <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
-      <ul className="space-y-2 font-medium">
+    <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 ">
+      <ul className="space-y-2 font-medium text-theme-primary">
   {navItems.map((item, index) => (
     <li key={index}>
-      <button onClick = {()=>{navigateTo(item.path)}} className={`flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group ${item.classes}`}>
+      <button onClick = {()=>{navigateTo(item.path)}} className={`w-full text-start flex justify-start items-center p-2 rounded-lg hover:bg-gray-100 hover:text-theme-primary-hovered group ${item.classes}`}>
         <span className="flex-1 ms-3 whitespace-nowrap">{item.label}</span>
       </button>
     </li>
   ))}
-    <li>
+    <li className="">
       <button onClick = {()=>{
         logout();
         navigateTo('/');
-      }} className={`flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group`}>
+      }} className={`w-full text-start flex justify-start items-center p-2 rounded-lg hover:bg-gray-100 hover:text-theme-primary-hovered group`}>
         <span className="flex-1 ms-3 whitespace-nowrap">{`Sign out`}</span>
       </button>
     </li>
@@ -240,38 +240,38 @@ const navItems = [
 
 
 
-const DisableLoggedINUser = ({children}) => {
+// const DisableLoggedINUser = ({children}) => {
   
-  const navigate = useNavigate();
-  // const [error, setError] = useState();
-  const [loading, setLoading] = useState(true);
-  const user = useUserAuth();
+//   const navigate = useNavigate();
+//   // const [error, setError] = useState();
+//   const [loading, setLoading] = useState(true);
+//   const user = useUserAuth();
 
-  useEffect(()=>{
-    console.log("useUserAuth", user);
-    if(user.isLoggedIn)
-      {
-        navigate('/');
-      }
-      setLoading(false)
-  }, [])
+//   useEffect(()=>{
+//     console.log("useUserAuth", user);
+//     if(user.isLoggedIn)
+//       {
+//         navigate('/');
+//       }
+//       setLoading(false)
+//   }, [])
 
-  if(loading)
-  {
-    return(
-      <div>
-        <h1>
-          Loading...
-        </h1>
-      </div>
-    )
-  }
-  return(
-    <>
-    <div>
-      This is the admin route
-    </div>
-      <Outlet />
-    </>
-  )
-}
+//   if(loading)
+//   {
+//     return(
+//       <div>
+//         <h1>
+//           Loading...
+//         </h1>
+//       </div>
+//     )
+//   }
+//   return(
+//     <>
+//     <div>
+//       This is the admin route
+//     </div>
+//       <Outlet />
+//     </>
+//   )
+// }

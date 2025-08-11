@@ -43,7 +43,7 @@ const TabularBookCard = ({ book, dataUpdated }) => {
   // console.log("book", book)
 
   return (
-    <div className="w-full p-4 mb-4 border rounded shadow hover:shadow-md text-left even:bg-background-dark odd:bg-primary text-text-400 odd:text-white hover:text-text-600 hover:bg-background-muted transition-colors duration-200 cursor-pointer"
+    <div className="w-full p-4 mb-4 border rounded shadow hover:shadow-md text-left even:bg-theme-background odd:bg-theme-foreground even:text-theme-text-unrelated-dark odd:text-theme-text-primary hover:text-theme-text-secondary hover:bg-theme-primary transition-colors duration-200 cursor-pointer group"
         onClick={openABook}
     >
       <div className="grid grid-cols-9 gap-4 items-center">
@@ -56,7 +56,7 @@ const TabularBookCard = ({ book, dataUpdated }) => {
         <div className="truncate text-sm" title={author.join(', ')}>
           {author[0]}
           <span
-            className='text-gray-400 ms-1'
+            className='text-gray-400 group-hover:text-theme-text-unrelated ms-1'
           >
             {renderExtraCount(author)}
           </span>
@@ -64,7 +64,7 @@ const TabularBookCard = ({ book, dataUpdated }) => {
         <div className="truncate text-sm" title={genre.join(', ')}>
           {genre[0]}
           <span
-            className='text-gray-400 ms-1'
+            className='text-gray-400 group-hover:text-theme-text-unrelated ms-1'
           >
             {renderExtraCount(genre)}
           </span>
@@ -76,7 +76,7 @@ const TabularBookCard = ({ book, dataUpdated }) => {
             return (
                         <div key={i} className="relative w-5 h-5 mr-1">
                           {/* Gray background star */}
-                          <Icon icon="si:star-fill" className="text-text-600 w-5 h-5 absolute inset-0" />
+                          <Icon icon="si:star-fill" className="text-theme-text-unrelated-dark w-5 h-5 absolute inset-0" />
             
                           {/* Yellow foreground star with partial width fill */}
                           <div
@@ -94,7 +94,7 @@ const TabularBookCard = ({ book, dataUpdated }) => {
             className='col-span-1'
         >
             <button
-                className='text-red-500 border border-red-500 rounded-full p-1.5'
+                className='text-theme-primary border border-theme-primary group-hover:text-theme-text-secondary group-hover:border-theme-text-secondary rounded-full p-1.5'
                 onClick={deleteABook}
             >
                 <Icon icon="fluent:delete-48-regular" className='w-full h-full' />

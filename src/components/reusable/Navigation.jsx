@@ -493,7 +493,7 @@ useEffect(() => {
 
 
   return (
-    <nav className="bg-foreground-muted text-text-600 rounded-lg">
+    <nav className="bg-theme-primary text-theme-text-secondary rounded-lg sticky top-0 z-20">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <button className="flex items-center space-x-3 rtl:space-x-reverse"
           onClick={()=>{navigateTo('/')}}
@@ -549,7 +549,7 @@ useEffect(() => {
                       id="dropdownNavbarLink"
                       data-dropdown-toggle={item.dropdownId}
                       
-                      className="flex items-center justify-between w-full py-2 px-3 rounded-sm md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700"
+                      className="flex items-center justify-between w-full py-2 px-3 rounded-sm md:hover:bg-transparent md:border-0 hover:text-theme-text-hovered md:p-0 md:w-auto "
                     >
                       {item.label}
                       <svg
@@ -570,7 +570,7 @@ useEffect(() => {
                     </button>
                     <div
                       id={item.dropdownId}
-                      className={`z-10 absolute font-normal bg-foreground-muted text-text-600 ${user.isLoggedIn && "divide-y"} divide-text-400 rounded-lg shadow-sm w-auto dark:bg-gray-700 dark:divide-gray-600
+                      className={`z-10 absolute font-normal bg-theme-primary text-theme-text-secondary ${user.isLoggedIn && "divide-y"} divide-theme-background rounded-lg shadow-sm w-auto 
                             ${mouseEntererOn === item.label ? "block": "hidden"}
                         `}
                     >
@@ -580,7 +580,7 @@ useEffect(() => {
                       >
                         {item.dropdownItems.map((subItem, subIndex) => (
                           <li key={subIndex}>
-                            <button className="block w-full text-start px-4 py-2 hover:text-accent"
+                            <button className="block w-full text-start px-4 py-2 hover:text-theme-text-hovered"
                               onClick={()=>{
                                 console.log(subItem)
                                 navigateTo(subItem.path)
@@ -596,7 +596,7 @@ useEffect(() => {
                         item.dropdownFooter && item.dropdownFooter.length > 0 && (
                           item.dropdownFooter.map(footerItem =>(
                             <div className="py-0">
-                        <button className="w-full px-3 py-2 text-sm text-start text-text-600 hover:bg-background-subtle hover:text-accent"
+                        <button className="w-full px-3 py-2 text-sm text-start text-theme-text-secondary hover:text-theme-text-hovered hover:bg-theme-primary-hovered"
                           onClick={footerItem.function}
                         >
                             {footerItem.label}
@@ -615,7 +615,7 @@ useEffect(() => {
                 <li key={index}>
                   <button
                     className=
-                      {`block py-2 px-3 rounded-sm  md:border-0  hover:text-accent-dark ${item.className} md:p-0`}
+                      {`block py-2 px-3 rounded-sm  md:border-0  hover:text-theme-text-hovered ${item.className} md:p-0`}
                     
                     aria-current={item.current ? 'page' : undefined}
                     onClick={()=>{
