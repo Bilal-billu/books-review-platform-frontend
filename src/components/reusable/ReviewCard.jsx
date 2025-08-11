@@ -9,9 +9,9 @@ const ReviewCard = ({ review }) => {
   const datePosted = toUTC_YMD_HM(review.createdAt);
 
   return (
-    <div className="flex p-4 border rounded shadow-sm bg-background-dark space-x-4">
+    <div className="flex p-4 border rounded shadow-sm bg-theme-foreground space-x-4">
       {/* Profile Image */}
-      <div className='w-20'>
+      <div className='w-20 text-theme-text-unrelated-dark'>
         <img
           src={image || DEFAULT_IMAGE}
           alt={`${userId.name}'s profile`}
@@ -23,9 +23,9 @@ const ReviewCard = ({ review }) => {
       </div>
 
       {/* Review Details */}
-      <div className="flex flex-col space-y-1">
-        <div className="font-semibold text-lg text-text-400">{userId.name}</div>
-        <div className="text-sm text-text-400 ">{userId.email}</div>
+      <div className="flex flex-col space-y-1 text-theme-text-primary">
+        <div className="font-semibold text-lg">{userId.name || "Deleted User"}</div>
+        <div className="text-sm ">{userId.email || "[deleted user]"}</div>
 
         {/* Stars */}
         <div className="flex gap-x-0.5">
@@ -44,7 +44,7 @@ const ReviewCard = ({ review }) => {
                 icon="si:star-fill"
                 key={index}
                 className={`w-5 h-5 ${
-                    index < starsCount ? 'text-yellow-400' : 'text-text-600'
+                    index < starsCount ? 'text-yellow-400' : 'text-theme-text-unrelated-dark'
                 }`}
             />
           ))}

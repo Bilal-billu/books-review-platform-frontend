@@ -21,9 +21,9 @@ export default () => {
     >
       {
         slidesList.map((item, i) =>(
-            <SwiperSlide className='h-full' key={i}>
+            <SwiperSlide className='h-full p-10' key={i}>
                 <div>
-                    <div className=" rounded-lg h-[70vh] shadow-lg overflow-hidden flex justify-center items-center px-2 py-10 bg-foreground-muted">
+                    <div className=" rounded-lg h-[70vh] shadow-lg overflow-hidden flex justify-center items-center px-2 py-10">
                       <img 
                         src={item.image} 
                         // alt="Sample Image" 
@@ -31,8 +31,8 @@ export default () => {
                       />
                     </div>
 
-                    <div className='mt-4'>
-                        <h5 className='text-center text-3xl text-text-500'>{item.text}</h5>
+                    <div className='mt-4 text-theme-text-primary'>
+                        <h5 className='text-center text-3xl'>{item.text}</h5>
                     </div>
 
                 </div>

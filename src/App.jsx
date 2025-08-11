@@ -10,15 +10,16 @@ import { useState } from "react";
 import Cookies from 'js-cookie';
 import SingleBook from "./pages/SingleBook";
 import axios from "axios";
-import { AuthProvider, useUserAuth } from "./context/AuthContext.jsx";
+import { AuthProvider, useLogout, useUserAuth } from "./context/AuthContext.jsx";
 import { Theme } from "@radix-ui/themes";
 import Page404 from "./pages/Page404.jsx";
+import AdminUsers from "./pages/AdminUsers.jsx";
 
 
 function App() {
 
   return (
-    <div className="bg-background min-h-screen">
+    <div className="bg-theme-background min-h-screen px-10">
       <AuthProvider>
         <Theme accentColor="indigo" >
       <BrowserRouter>
@@ -62,14 +63,15 @@ function App() {
               <AdminBooks />
             }
             />
-            </Route>
-          <Route
-            path="/edit-book/:id"
+
+            <Route path="user"
             element = {
-              <UserLayout el={<AdminBooks />} />
-                
+              <AdminUsers />
             }
-          />
+            />
+            
+            </Route>
+          
 
           <Route
             path="/page-404"
@@ -125,6 +127,7 @@ const UserLayout = ({ el }) => {
 const ProtectedAdminRoute = ({ children }) => {
   const navigate = useNavigate();
   const user = useUserAuth();
+  const logout = useLogout();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -138,6 +141,13 @@ const ProtectedAdminRoute = ({ children }) => {
       setLoading(false);
     }
   }, [user]);
+
+  const navigateTo = (path) =>
+  {
+    navigate(path)
+    console.log(path)
+  }
+
 
   if (loading) {
     return (
@@ -166,15 +176,23 @@ const ProtectedAdminRoute = ({ children }) => {
     className="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
     aria-label="Sidebar"
   >
-    <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
-      <ul className="space-y-2 font-medium">
+    <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 ">
+      <ul className="space-y-2 font-medium text-theme-primary">
   {navItems.map((item, index) => (
     <li key={index}>
-      <a href={item.path} className={`flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group ${item.classes}`}>
+      <button onClick = {()=>{navigateTo(item.path)}} className={`w-full text-start flex justify-start items-center p-2 rounded-lg hover:bg-gray-100 hover:text-theme-primary-hovered group ${item.classes}`}>
         <span className="flex-1 ms-3 whitespace-nowrap">{item.label}</span>
-      </a>
+      </button>
     </li>
   ))}
+    <li className="">
+      <button onClick = {()=>{
+        logout();
+        navigateTo('/');
+      }} className={`w-full text-start flex justify-start items-center p-2 rounded-lg hover:bg-gray-100 hover:text-theme-primary-hovered group`}>
+        <span className="flex-1 ms-3 whitespace-nowrap">{`Sign out`}</span>
+      </button>
+    </li>
 </ul>
 
     </div>
@@ -194,61 +212,66 @@ const ProtectedAdminRoute = ({ children }) => {
 const navItems = [
   {
     classes: "",
+    label: "Home",
+    path: "/"
+  },
+  {
+    classes: "",
     label: "Books",
-    path: "#"
+    path: "/admin/"
   },
   {
     classes: "",
     label: "Reviews",
-    path: "#"
+    path: "/admin/"
   },
   {
     classes: "",
     label: "Users",
-    path: "#"
+    path: "/admin/user"
   },
   
-  {
-    classes: "",
-    label: "Sign Out",
-    path: "#"
-  }
+  // {
+  //   classes: "",
+  //   label: "Sign Out",
+  //   path: "#"
+  // }
 ];
 
 
 
-const DisableLoggedINUser = ({children}) => {
+// const DisableLoggedINUser = ({children}) => {
   
-  const navigate = useNavigate();
-  // const [error, setError] = useState();
-  const [loading, setLoading] = useState(true);
-  const user = useUserAuth();
+//   const navigate = useNavigate();
+//   // const [error, setError] = useState();
+//   const [loading, setLoading] = useState(true);
+//   const user = useUserAuth();
 
-  useEffect(()=>{
-    console.log("useUserAuth", user);
-    if(user.isLoggedIn)
-      {
-        navigate('/');
-      }
-      setLoading(false)
-  }, [])
+//   useEffect(()=>{
+//     console.log("useUserAuth", user);
+//     if(user.isLoggedIn)
+//       {
+//         navigate('/');
+//       }
+//       setLoading(false)
+//   }, [])
 
-  if(loading)
-  {
-    return(
-      <div>
-        <h1>
-          Loading...
-        </h1>
-      </div>
-    )
-  }
-  return(
-    <>
-    <div>
-      This is the admin route
-    </div>
-      <Outlet />
-    </>
-  )
-}
+//   if(loading)
+//   {
+//     return(
+//       <div>
+//         <h1>
+//           Loading...
+//         </h1>
+//       </div>
+//     )
+//   }
+//   return(
+//     <>
+//     <div>
+//       This is the admin route
+//     </div>
+//       <Outlet />
+//     </>
+//   )
+// }

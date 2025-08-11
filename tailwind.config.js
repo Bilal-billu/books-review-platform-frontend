@@ -5,34 +5,61 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {
-      colors: {
-        text: {
-          400: '#9CA3AF', // e.g., gray-400
-          500: '#1F2937', // gray-500
-          600: '#4B5563', // gray-600
+  extend: {
+    colors: {
+      text: {
+        400: '#6B7280', // gray-500 — soft text
+        500: '#374151', // gray-700 — body text
+        600: '#1F2937', // gray-800 — headings or strong text
+      },
+      background: {
+        DEFAULT: '#FFFFFF', // pure white background
+        muted: '#F3F4F6',    // very light gray — for cards, sections
+        subtle: '#F9FAFB',   // background accents or alternate rows
+        dark: '#61646b',
+      },
+      accent: {
+        DEFAULT: '#3B82F6', // blue-500 — interactive elements
+        light: '#DBEAFE',   // blue-100 — hover backgrounds or soft accents
+        dark: '#2563EB',    // blue-600 — active or strong accents
+      },
+      foreground: {
+        DEFAULT: '#1F2937', // gray-800 — general text
+        soft: '#4B5563',    // gray-600 — muted UI text
+        muted: '#9CA3AF',   // gray-400 — placeholders, secondary info
+      },
+      primary: {
+        DEFAULT: '#2563EB', // brand/main color
+        contrast: '#FFFFFF', // text on primary (e.g., buttons)
+      },
+
+      theme: {
+        primary: {
+          DEFAULT: '#c6005c',
+          hovered: "#ab004f",
         },
         background: {
-          DEFAULT: '#F9FAFB', // very light gray
-          dark: '#1F2937',     // dark background
-          muted: '#E5E7EB',    // light gray background
-        },
-        accent: {
-          DEFAULT: '#2563EB', // blue-500
-          light: '#E5E7EB',   // blue-300
-          dark: '#1D4ED8',    // blue-700
+          DEFAULT: '#FAF9F6',
         },
         foreground: {
-          DEFAULT: '#111827', // gray-900
-          soft: '#374151',    // gray-700
-          muted: '#6B7280',   // gray-500
+          DEFAULT: '#FFFFFF'
         },
-        primary: {
-          DEFAULT: '#111827',
+        text: {
+          primary: "#000000",
+          secondary: "#FFFFFF",
+          unrelated: {
+            DEFAULT: "#F3F4F6",
+            dark: "#45556c",
+          },
+          hovered: "#FFFCEA",
+
         },
-      },
+
+      }
     },
   },
+},
+
   plugins: [],
 }
 

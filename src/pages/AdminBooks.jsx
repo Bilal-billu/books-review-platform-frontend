@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import AddBook from '../components/add-book/AddBook';
 import ModalDialog from '../components/reusable/Dialog';
-import TabularBookCard from '../components/TabularBookCard';
+import TabularBookCard from '../components/reusable/TabularBookCard';
 import axios from 'axios';
 
-const AdminPanel = () => {
+const AdminBooks = () => {
   const [showAddBook, setShowAddBook] = useState(false);
   const [allBooks, setAllBooks] = useState([])
 
@@ -51,7 +51,7 @@ const AdminPanel = () => {
       <div>
       <div className="w-full flex justify-end p-4">
         <button 
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          className="bg-theme-primary text-theme-text-secondary px-4 py-2 rounded hover:bg-theme-primary-hovered"
           onClick={() => setShowAddBook(true)}
         >
           Add Book
@@ -84,4 +84,4 @@ const AdminPanel = () => {
   );
 };
 
-export default AdminPanel;
+export default AdminBooks;

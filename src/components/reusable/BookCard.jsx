@@ -14,14 +14,14 @@ const BookCard = ({ item }) => {
   return (
     <button
       onClick={goToBook}
-      className="rounded-xl border border-gray-200 bg-foreground-soft shadow-sm hover:shadow-xl hover:scale-[1.02] transition duration-300 p-4 space-y-3 cursor-pointer text-left text-background"
+      className="rounded-xl border border-gray-200 bg-theme-foreground shadow-sm hover:shadow-xl hover:scale-[1.02] transition duration-300 p-4 space-y-3 cursor-pointer text-left text-theme-text-primary group"
     >
       {/* Image Section */}
       <div className="w-full aspect-[2/3] overflow-hidden rounded-md">
         <img
           src={item.image || 'https://myonlinebookshop.pk/cdn/shop/files/IMG-20250130-WA0023.jpg'}
           alt={item.name}
-          className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
         />
       </div>
 
@@ -32,7 +32,7 @@ const BookCard = ({ item }) => {
 
       {/* Author */}
       <div>
-        <p className="text-sm text-text-400 truncate">{item.author || 'Unknown Author'}</p>
+        <p className="text-sm truncate">{item.author || 'Unknown Author'}</p>
       </div>
 
       {/* Genre/Tag (optional) */}
@@ -40,7 +40,7 @@ const BookCard = ({ item }) => {
         <div className='space-x-1 max-w-full overflow-hidden'>
           {
             item.genre.map(item => (
-              <span className="inline-block bg-accent-dark text-xs px-2 py-1 rounded-full">
+              <span className="inline-block bg-theme-primary text-theme-text-secondary text-xs px-2 py-1 rounded-full">
                 {item}
               </span>
             ))

@@ -54,7 +54,7 @@ const SignupForm = ({onClose}) => {
           <img className="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo" />
           Flowbite
         </a> */}
-        <div className="w-full rounded-lg shadow  md:mt-0 sm:max-w-md xl:p-0 text-background-muted ">
+        <div className="w-full rounded-lg shadow  md:mt-0 sm:max-w-md xl:p-0 text-theme-text-primary  ">
           <div className="p-6 space-y-4 md:space-y-4 sm:p-4">
             <h1 className="text-xl font-bold leading-tight tracking-tightmd:text-2xl ">
               Create an account
@@ -66,7 +66,7 @@ const SignupForm = ({onClose}) => {
                     type="text"
                     name="name"
                     id="name"
-                    className="bg-foreground-soft text-background-muted border border-gray-300  text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2 "
+                    className=" text-theme-text-primary border border-theme-primary  text-sm rounded-lg focus:border-theme-primary-hovered block w-full p-2 focus:outline-none "
                     placeholder="John Doe"
                     required
                     value={name}
@@ -79,7 +79,7 @@ const SignupForm = ({onClose}) => {
                   type="email"
                   name="email"
                   id="email"
-                  className="bg-foreground-soft text-background-muted border border-gray-300  text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2 "
+                  className="text-theme-text-primary border border-theme-primary  text-sm rounded-lg focus:border-theme-primary-hovered block w-full p-2 focus:outline-none "
                   placeholder="name@company.com"
                   required
                   value={email}
@@ -93,7 +93,7 @@ const SignupForm = ({onClose}) => {
                   name="password"
                   id="password"
                   placeholder="••••••••"
-                  className="bg-foreground-soft text-background-muted border border-gray-300  text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2"
+                  className="text-theme-text-primary border border-theme-primary  text-sm rounded-lg focus:border-theme-primary-hovered block w-full p-2 focus:outline-none"
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -106,7 +106,7 @@ const SignupForm = ({onClose}) => {
                   name="confirm-password"
                   id="confirm-password"
                   placeholder="••••••••"
-                  className="bg-foreground-soft text-background-muted border border-gray-300 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2"
+                  className="text-theme-text-primary border border-theme-primary  text-sm rounded-lg focus:border-theme-primary-hovered block w-full p-2 focus:outline-none"
                   required
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
@@ -117,22 +117,22 @@ const SignupForm = ({onClose}) => {
                   <input
                     id="terms"
                     type="checkbox"
-                    className="w-4 h-4 border border-gray-300 rounded bg-foreground-soft focus:ring-3 focus:ring-blue-300 "
+                    className="w-4 h-4 border border-theme-primary rounded bg-theme-background focus:ring-3 focus:ring-theme-primary-hovered focus:outline-none"
                     required
                     checked={acceptedTerms}
                     onChange={(e) => setAcceptedTerms(e.target.checked)}
                   />
                 </div>
                 <div className="ml-3 text-sm">
-                  <label htmlFor="terms" className="font-light text-foreground-muted ">
-                    I accept the <a className="font-medium text-accent hover:underline " href="#">Terms and Conditions</a>
+                  <label htmlFor="terms" className="font-light text-theme-text-unrelated-dark ">
+                    I accept the <a className="font-medium text-theme-primary hover:underline " href="#">Terms and Conditions</a>
                   </label>
                 </div>
               </div>
               <button
                 type="submit"
                 disabled = {!requiredFields}
-                className="w-full text-white bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 disabled:hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+                className="w-full border border-theme-primary text-theme-text-secondary bg-theme-primary hover:bg-theme-primary-hovered  disabled:bg-theme-foreground disabled:text-theme-primary disabled:hover:bg-theme-foreground focus:ring-2 focus:outline-none focus:ring-theme-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center "
               >
                 Create an account
               </button>
