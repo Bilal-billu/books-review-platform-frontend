@@ -1,6 +1,7 @@
 import { AuthProvider, useLogout, useUserAuth } from "./context/AuthContext.jsx";
 import { Theme } from "@radix-ui/themes";
 import AppRouter from "./components/AppRouter.jsx";
+import { Toaster } from "react-hot-toast";
 
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
           <AppRouter />   
         </Theme>
       </AuthProvider>
+      <Toaster position="top-center" reverseOrder = {true} />
     </div>
   )
 }

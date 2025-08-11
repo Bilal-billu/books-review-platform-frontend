@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
-import { useUserAuth, useLogout } from "../../../context/AuthContext";
+import { useUserAuth, useLogout, useUserLoaded } from "../../../context/AuthContext";
 import { useNavigate, Outlet } from "react-router-dom";
+import LoadingSkeleton from "../loading/LoadingSkeleton";
+import { Loading } from "../loading/Loading";
 
 
 const navItems = [
@@ -38,19 +40,21 @@ const ProtectedAdminRoute = ({ children }) => {
   const navigate = useNavigate();
   const user = useUserAuth();
   const logout = useLogout();
-  const [loading, setLoading] = useState(true);
+  const loading = useUserLoaded();
 
   useEffect(() => {
-    console.log("Got User", user);
+  if (loading) return;
 
-    if (!user.isLoggedIn) {
-      navigate('/page-404');
-    } else if (user.user.role !== "Admin") {
-      navigate('/');
-    } else {
-      setLoading(false);
-    }
-  }, [user]);
+  console.log("Got User", user);
+
+  if (!user?.isLoggedIn || user?.user?.role !== "Admin") {
+    navigate('/page-404');
+  }
+//   else if (user?.user?.role !== "Admin") {
+//     navigate('/page-404');
+//   }
+}, [user, loading]);
+
 
   const navigateTo = (path) =>
   {
@@ -61,9 +65,9 @@ const ProtectedAdminRoute = ({ children }) => {
 
   if (loading) {
     return (
-      <div>
-        <h1>Loading...</h1>
-      </div>
+      <LoadingSkeleton>
+        <Loading />
+      </LoadingSkeleton>
     );
   }
 

@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { toastErrorsProps, toastSuccessProps } from './toast/toastStyles';
 
 const SignupForm = ({onClose}) => {
   const [name, setName] = useState('');
@@ -29,12 +31,14 @@ const SignupForm = ({onClose}) => {
         }
         const response = await axios.post(url, data);
         console.log(response)
+        toast.success("Successfully created account", {...toastSuccessProps})
         onClose();
         // navigate('/login');
     }
     catch(e)
     {
         console.log(e)
+        toast.error("Could not create account", {...toastErrorsProps})
     }
   };
 
