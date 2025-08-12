@@ -31,7 +31,29 @@ const SingleBook = () => {
         const response = await axios.get(`/api/book/${pathStringArray[pathStringArray.length - 1]}`);
         console.log(response)
         setBook(response.data.data.book);
-        setReviews(response.data.data.reviews)
+        let tempReviews = response.data.data.reviews;
+
+        if (Array.isArray(tempReviews) && tempReviews.length > 0) {
+          // Find index of the review where userId._id matches user._id
+          const matchingIndex = tempReviews.findIndex(review => {
+            // console.log(typeof(review.userId?._id) || "nope")
+            // console.log(user)
+            return review?.userId && typeof review.userId === 'object' &&
+                   Object.keys(review.userId).length > 0 &&
+                   review.userId._id === user.user._id;
+          });
+        
+          // If such a review is found, move it to the beginning
+          // console.log(matchingIndex)
+          if (matchingIndex > -1) {
+            const [matchedReview] = tempReviews.splice(matchingIndex, 1); // Remove it
+            tempReviews.unshift(matchedReview); // Add it at the start
+          }
+        }
+
+        console.log("tempReviews", tempReviews);
+
+        setReviews(tempReviews)
       } catch (err) {
         console.log(err)
         setError('Failed to fetch book details.');
@@ -71,6 +93,26 @@ const SingleBook = () => {
 
   const searchMoreBooks = (params) =>{
     navigate(`/search-book?${params}`)
+  }
+
+  const handleUpdateReview = async (id, text, starsCount) => {
+    // console.log(starsCount)
+    try
+    {
+      const url = `/api/review/update-review/${id}`;
+      const data = {
+        text, starsCount
+      }
+      const response = await axios.patch(url, data, {
+        withCredentials: true
+      })
+      console.log(response);
+      fetchSingleBook();
+    }
+    catch(e)
+    {
+      console.log(e);
+    }
   }
 
 
@@ -187,7 +229,7 @@ const SingleBook = () => {
                       icon="si:star-fill"
                       
                       className={`w-5 h-5 transition-colors duration-200 ${
-                          index < starsCount ? 'text-yellow-400' : 'text-text-600'
+                          index < starsCount ? 'text-yellow-400' : 'text-theme-text-unrelated-dark'
                       }`}
                     />
                   </button>
@@ -231,10 +273,10 @@ const SingleBook = () => {
         {
           reviews && reviews.length > 0 ? (
             reviews.map((item, i) => (
-              <ReviewCard review = {item} key={item.email || i} />
+              <ReviewCard review = {item} key={item._id || item.userId.email || i} updateReviewFunc = {handleUpdateReview} />
             ))
           ) : (
-            <h5 className='text-center text-gray-400'>This book has't been reviewed yet.</h5>
+            <h5 className='text-center text-gray-400'>This book hasn't been reviewed yet.</h5>
           )
         }
       </div>
@@ -290,7 +332,7 @@ const StarRating = ({ rating }) => {
           return (
             <div key={i} className="relative w-5 h-5 mr-1">
               {/* Gray background star */}
-              <Icon icon="si:star-fill" className="text-text-600 w-5 h-5 absolute inset-0" />
+              <Icon icon="si:star-fill" className="text-theme-text-unrelated-dark w-5 h-5 absolute inset-0" />
 
               {/* Yellow foreground star with partial width fill */}
               <div
