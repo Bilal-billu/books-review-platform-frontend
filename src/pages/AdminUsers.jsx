@@ -2,10 +2,16 @@ import {useState, useEffect} from 'react';
 import axios from 'axios';
 import ModalDialog from '../components/reusable/Dialog';
 import TabularUserCard from '../components/reusable/TabularUserCard';
+import LoadingSkeleton from '../components/reusable/loading/LoadingSkeleton';
+import { Loading } from '../components/reusable/loading/Loading';
+import Error from '../components/reusable/error/Error';
 
 const AdminUsers = () => {
   const [showAddUser, setShowAddUser] = useState(false);
   const [allUsers, setAllUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false)
+
 
   const getUsers = async () => {
     // Replace with actual API call
@@ -20,6 +26,11 @@ const AdminUsers = () => {
     catch(e)
     {
         console.log(e)
+        setError(true);
+    }
+    finally
+    {
+      setLoading(false);
     }
 
     // Temporary dummy data
@@ -32,6 +43,24 @@ const AdminUsers = () => {
   useEffect(() => {
     getUsers();
   }, []);
+
+  if(loading)
+  {
+    return (
+      <LoadingSkeleton>
+        <Loading />
+      </LoadingSkeleton>
+    )
+  }
+
+  if(error)
+  {
+    return (
+      <LoadingSkeleton>
+        <Error />
+      </LoadingSkeleton>
+    )
+  }
 
   return (
     <div>

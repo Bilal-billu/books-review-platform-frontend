@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useUserAuth } from '../context/AuthContext';
 import ReviewCard from '../components/reusable/ReviewCard';
 import { Icon } from '@iconify/react/dist/iconify.js';
+import LoadingSkeleton from '../components/reusable/loading/LoadingSkeleton';
+import { Loading } from '../components/reusable/loading/Loading';
 
 const SingleBook = () => {
   const location = useLocation();
@@ -15,6 +17,7 @@ const SingleBook = () => {
   const [reviews, setReviews] = useState([]);
 
   const user = useUserAuth();
+  const navigate = useNavigate();
   const handleCancel = () => {
     setStarsCount(0);
     setText('');
@@ -28,7 +31,29 @@ const SingleBook = () => {
         const response = await axios.get(`/api/book/${pathStringArray[pathStringArray.length - 1]}`);
         console.log(response)
         setBook(response.data.data.book);
-        setReviews(response.data.data.reviews)
+        let tempReviews = response.data.data.reviews;
+
+        if (Array.isArray(tempReviews) && tempReviews.length > 0) {
+          // Find index of the review where userId._id matches user._id
+          const matchingIndex = tempReviews.findIndex(review => {
+            // console.log(typeof(review.userId?._id) || "nope")
+            // console.log(user)
+            return review?.userId && typeof review.userId === 'object' &&
+                   Object.keys(review.userId).length > 0 &&
+                   review.userId._id === user.user._id;
+          });
+        
+          // If such a review is found, move it to the beginning
+          // console.log(matchingIndex)
+          if (matchingIndex > -1) {
+            const [matchedReview] = tempReviews.splice(matchingIndex, 1); // Remove it
+            tempReviews.unshift(matchedReview); // Add it at the start
+          }
+        }
+
+        console.log("tempReviews", tempReviews);
+
+        setReviews(tempReviews)
       } catch (err) {
         console.log(err)
         setError('Failed to fetch book details.');
@@ -66,11 +91,45 @@ const SingleBook = () => {
     }
   };
 
+  const searchMoreBooks = (params) =>{
+    navigate(`/search-book?${params}`)
+  }
+
+  const handleUpdateReview = async (id, text, starsCount) => {
+    // console.log(starsCount)
+    try
+    {
+      const url = `/api/review/update-review/${id}`;
+      const data = {
+        text, starsCount
+      }
+      const response = await axios.patch(url, data, {
+        withCredentials: true
+      })
+      console.log(response);
+      fetchSingleBook();
+    }
+    catch(e)
+    {
+      console.log(e);
+    }
+  }
+
 
   // const isDisabled = !(user.isLoggedIn) || text.length === 0
 
-  if (loading) return <div className="text-center mt-10 text-gray-600">Loading...</div>;
-  if (error) return <div className="text-center mt-10 text-red-600">{error}</div>;
+  if (loading) return(
+    <LoadingSkeleton>
+      <Loading />
+    </LoadingSkeleton>
+  );
+  if (error){
+    return (
+      <LoadingSkeleton>
+        <Error />
+      </LoadingSkeleton>
+    )
+  }
 
   return (
     <div>
@@ -84,18 +143,28 @@ const SingleBook = () => {
       </div>
       <div className="md:w-2/3 md:pl-8">
         <h2 className="text-3xl font-bold mb-4 text-theme-primary">{book.title}</h2>
-        <p className="mb-2"><span className="font-semibold">Author:</span> {book.author.map((item, i) =>(<span
-            className={`${i!==0 && "ms-1"}`}
+        <p className="mb-2"><span className="font-semibold">Author:</span> {book.author.map((item, i) =>(
+          <button
+            className={`${i!==0 && "ms-1"} hover:underline hover:text-theme-primary`}
+            onClick={(e)=>{
+              e.stopPropagation();
+              searchMoreBooks(`author=${item}`)
+            }}
+            
         >
             {item}{(i<book.author.length -1) && ','}
-        </span>)
+        </button>)
     )}</p>
         <p className="mb-2"><span className="font-semibold">Genre:</span> {book.genre.map((item, i) =>(
-          <span
-            className={`${i!==0 && "ms-1"}`}
+          <button
+            className={`${i!==0 && "ms-1"}  hover:underline hover:text-theme-primary`}
+            onClick={(e)=>{
+              e.stopPropagation();
+              searchMoreBooks(`genre=${item}`)
+            }}
         >
             {item}{(i<book.genre.length -1) && ','}
-        </span>))}
+        </button>))}
         </p>
         <div className="mb-2 flex justify-start items-center">
           <StarRating rating={book.rating} />
@@ -160,7 +229,7 @@ const SingleBook = () => {
                       icon="si:star-fill"
                       
                       className={`w-5 h-5 transition-colors duration-200 ${
-                          index < starsCount ? 'text-yellow-400' : 'text-text-600'
+                          index < starsCount ? 'text-yellow-400' : 'text-theme-text-unrelated-dark'
                       }`}
                     />
                   </button>
@@ -204,10 +273,10 @@ const SingleBook = () => {
         {
           reviews && reviews.length > 0 ? (
             reviews.map((item, i) => (
-              <ReviewCard review = {item} key={item.email || i} />
+              <ReviewCard review = {item} key={item._id || item.userId.email || i} updateReviewFunc = {handleUpdateReview} />
             ))
           ) : (
-            <h5 className='text-center text-gray-400'>This book has't been reviewed yet.</h5>
+            <h5 className='text-center text-gray-400'>This book hasn't been reviewed yet.</h5>
           )
         }
       </div>
@@ -263,7 +332,7 @@ const StarRating = ({ rating }) => {
           return (
             <div key={i} className="relative w-5 h-5 mr-1">
               {/* Gray background star */}
-              <Icon icon="si:star-fill" className="text-text-600 w-5 h-5 absolute inset-0" />
+              <Icon icon="si:star-fill" className="text-theme-text-unrelated-dark w-5 h-5 absolute inset-0" />
 
               {/* Yellow foreground star with partial width fill */}
               <div

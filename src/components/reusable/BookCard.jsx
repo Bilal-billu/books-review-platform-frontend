@@ -57,7 +57,7 @@ const BookCard = ({ item }) => {
                 return (
                   <div key={i} className="relative w-5 h-5 mr-1">
                     {/* Gray background star */}
-                    <Icon icon="si:star-fill" className="text-text-400 w-5 h-5 absolute inset-0" />
+                    <Icon icon="si:star-fill" className="text-theme-text-unrelated-dark w-5 h-5 absolute inset-0" />
       
                     {/* Yellow foreground star with partial width fill */}
                     <div
